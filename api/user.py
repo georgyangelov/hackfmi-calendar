@@ -2,6 +2,8 @@ from bottle import *
 from mongoengine import *
 import hashlib
 import re
+import json
+import datetime
 
 
 class User(Document):
@@ -13,6 +15,12 @@ class User(Document):
     grade = IntField(required=True)
     major_id = IntField(required=True)
     tags = ListField(ReferenceField("Tag"))
+
+    def to_json(self):
+        copy = (self.__dict__["_data"]).copy()
+        del copy[None]
+        del copy['password']
+        return json.dumps(copy)
 
 
 @error(400)
@@ -65,7 +73,7 @@ def login():
     email = request.forms.get('email')
     password = request.forms.get('password')
     if User.objects(email=email):
-        return {"success": True}
+        return User.objects(email=email)[0].to_json()
     else:
         return error400("Invalid user")
 
