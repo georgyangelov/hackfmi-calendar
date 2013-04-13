@@ -23,12 +23,6 @@ class User(Document):
         del representation['password']
         return json.dumps(representation)
 
-    def to_json(self):
-        copy = (self.__dict__["_data"]).copy()
-        del copy[None]
-        del copy['password']
-        return json.dumps(copy)
-
 
 @error(400)
 def error400(message):
