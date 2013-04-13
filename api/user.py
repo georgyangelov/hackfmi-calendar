@@ -3,6 +3,7 @@ from mongoengine import *
 import hashlib
 import re
 
+
 class User(Document):
     first_name = StringField(required=True)
     last_name = StringField(required=True)
