@@ -4,6 +4,8 @@ function calendarmonth(year, month) {
 	this.year = ko.observable(year);
 	this.month = ko.observable(month);
 
+	this.events = ko.observableArray([new EventItem(), new EventItem()]);
+
 	/* Gets day of week (1 to 7) and starts with Monday */
 	function dayOfWeek(date) {
 		return date.getDay() == 0 ? 7 : date.getDay();
@@ -21,12 +23,12 @@ function calendarmonth(year, month) {
 
 		for (var i = 0; i < daysBeforeFirstDate; i++) {
 			lastMonthDates.setDate(lastMonthDates.getDate() + 1);
-			days.push(new DateItem(lastMonthDates.getFullYear(), lastMonthDates.getMonth(), lastMonthDates.getDate(), dayOfWeek(lastMonthDates)));
+			days.push(new DateItem(lastMonthDates.getFullYear(), lastMonthDates.getMonth(), lastMonthDates.getDate(), dayOfWeek(lastMonthDates), self));
 		}
 
 		/* Render current month */
 		for (var day = 1; day <= lastDay.getDate(); day++) {
-			days.push(new DateItem(firstDay.getFullYear(), firstDay.getMonth(), day, dayOfWeek(firstDay)));
+			days.push(new DateItem(firstDay.getFullYear(), firstDay.getMonth(), day, dayOfWeek(firstDay), self));
 			firstDay.setDate(firstDay.getDate() + 1);
 		}
 
@@ -35,7 +37,7 @@ function calendarmonth(year, month) {
 		var nextMonthDates = new Date(self.year(), self.month() + 1, 1);
 
 		for (var i = 0; i < daysAfterLastDate; i++) {
-			days.push(new DateItem(nextMonthDates.getFullYear(), nextMonthDates.getMonth(), nextMonthDates.getDate()));
+			days.push(new DateItem(nextMonthDates.getFullYear(), nextMonthDates.getMonth(), nextMonthDates.getDate(), dayOfWeek(nextMonthDates), self));
 			nextMonthDates.setDate(nextMonthDates.getDate() + 1);
 		}
 

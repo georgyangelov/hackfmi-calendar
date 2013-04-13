@@ -34,7 +34,7 @@
 <body>
 	<header class="row-fluid">
 			<div class="span4" id="header">
-				<h2>ФМИ Календар - <span data-bind="text: year"></span></h2>
+				<img src="style/fmievents.png" />
 			</div>
 
 			<div class="span4" id="alertsContainer" data-bind="foreach: alerts">
@@ -67,17 +67,29 @@
 	<!-- ko ifnot: isEventPage -->
 	<!-- <div class="container"> -->
 	<div data-bind="component: leftCalendar" class="calendar-month calendar-left"></div>
-	<button id="previous_month" class="btn btn-success" data-bind="click: prev_month">Предишен месец</button>
+	<div id="previous_month" data-bind="click: prev_month">
+		<ul class="pager">
+			<li class="previous">
+				<a href="#">&larr; Назад</a>
+			</li>
+		</ul>
+	</div>
 
 	<div data-bind="component: centerCalendar" class="calendar-month calendar-center"></div>
 	<div data-bind="component: rightCalendar" class="calendar-month calendar-right"></div>
-	<button id="next_month" class="btn btn-success" data-bind="click: next_month">Следващ месец</button>
+	<div id="next_month" data-bind="click: next_month">
+		<ul class="pager">
+			<li class="previous">
+				<a href="#">Напред &rarr;</a>
+			</li>
+		</ul>
+	</div>
 	<!-- </div> -->
 
 	<ul class="vertical-event-list">
 		<li>
 			<a href="#" class="thumbnail">
-				<img src="http://placekitten.com/250/150" />
+
 
 				<h3>Test event title</h3>
 				<p>test event description</p>
@@ -85,7 +97,7 @@
 		</li>
 		<li>
 			<a href="#" class="thumbnail">
-				<img src="http://placekitten.com/250/150" />
+
 
 				<h3>Test event title</h3>
 				<p>test event description</p>
@@ -93,7 +105,7 @@
 		</li>
 		<li>
 			<a href="#" class="thumbnail">
-				<img src="http://placekitten.com/250/150" />
+
 
 				<h3>Test event title</h3>
 				<p>test event description</p>
@@ -101,7 +113,7 @@
 		</li>
 		<li>
 			<a href="#" class="thumbnail">
-				<img src="http://placekitten.com/250/150" />
+
 
 				<h3>Test event title</h3>
 				<p>test event description</p>
@@ -109,7 +121,7 @@
 		</li>
 		<li>
 			<a href="#" class="thumbnail">
-				<img src="http://placekitten.com/250/150" />
+
 
 				<h3>Test event title</h3>
 				<p>test event description</p>

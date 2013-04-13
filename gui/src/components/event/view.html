@@ -1,5 +1,11 @@
 <div class="events-list">
-
+	<!-- ko foreach: events -->
+	<div class="event">
+		<h4 data-bind="text: name"></h4>
+		<i class="pull-right" data-bind="text: date"></i>
+		<div style="clear: both"></div>
+	</div>
+	<!-- /ko -->
 </div>
 
 <div class="calendar-container">

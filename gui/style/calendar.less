@@ -5,18 +5,21 @@
 
 .calendar-month {
 	width: percentage(1/5);
-	height: 200px;
 	margin: percentage(1/50);
 
 	.date {
 		font-size: 16px !important;
 	}
+
+	background-color: white;
+	border: 1px solid @contour_color;
+	padding: 10px;
+	border-radius: 10px;
 }
 
 .calendar-left, .calendar-right {
 	position: absolute;
 	width: 300px;
-	height: 250px;
 }
 
 .calendar-left {
@@ -31,7 +34,6 @@
 
 .calendar-center {
 	width: 600px;
-	height: 300px;
 
 	position: absolute;
 	top: 50px;
@@ -39,8 +41,12 @@
 	margin-left: -300px;
 
 	.date {
-		height: 50px !important;
+		height: 60px !important;
 	}
+}
+
+#eventpage .date.past, #eventpage .date.future {
+	visibility: hidden !important;
 }
 
 .calendar {
@@ -52,28 +58,7 @@
 		width: 100%;
 		height: 100%;
 
-		box-sizing: border-box;
-		padding-top: @calendar_date_height;
-
 		overflow: auto;
-	}
-
-	.header {
-		position: absolute;
-		top: 0;
-		left: 0;
-
-		width: 100%;
-
-		background: @header_background_color;
-
-		.date-placeholder {
-			font-size: 20px;
-			font-weight: bold;
-
-			line-height: @calendar_date_height;
-			text-align: center;
-		}
 	}
 
 	.header-small {
@@ -81,7 +66,7 @@
 		background: @header_background_color;
 
 		.date-placeholder {
-			font-size: 16px;
+			font-size: 14px;
 			//font-weight: bold;
 
 			line-height: @calendar_date_height;
@@ -102,10 +87,10 @@
 		}
 
 		&.past, &.future {
-			color: fade(@day_color, 50%);
+			color: fade(@day_color, 30%);
 
 			&.weekend {
-				color: fade(@weekend_color, 50%);
+				color: fade(@weekend_color, 30%);
 			}
 		}
 		&.current {
@@ -125,7 +110,10 @@
 			}
 		}
 
-		font-size: 20px;
+		border-left: 1px solid darken(white, 5%);
+		border-top: 1px solid darken(white, 3%);
+
+		font-size: 15px;
 
 		// Padding is included in the width
 		box-sizing: border-box;

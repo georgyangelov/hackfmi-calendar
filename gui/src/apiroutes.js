@@ -41,3 +41,14 @@ amplify.request.define(
         decoder: "errorDecoder"
     }
 );
+
+amplify.request.define(
+    "get_events_month", "ajax",
+    {
+        url: "/events/month/{month}",
+        type: "GET",
+        dataType: "json",
+        cache: false,
+        decoder: "errorDecoder"
+    }
+);
