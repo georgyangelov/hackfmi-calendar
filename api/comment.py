@@ -13,7 +13,6 @@ class Comment(Document):
     def to_json(self):
         representation = self.__dict__["_data"].copy()
         del representation[None]
-        del representation['password']
         return json.dumps(representation)
 
 
@@ -34,7 +33,8 @@ def publish_comment(session_key):
 
 @get('/comments/:event_id')
 def view_comments(event_id):
-    if Event.objects(id_field=event_id):
-        return map(lambda comment: comment.to_json(), (Event.objects(id_field=event_id)[0]).comments)
+    events = [event for event in Event.objects() if event.id_field == event_id]
+    if events:
+        return map(lambda comment: comment.to_json(), events[0].comments)
     else:
         return error403("There is no such event")
