@@ -19,7 +19,11 @@ class User(Document):
 def error400(message):
     raise HTTPResponse('{"success": false, "message": "' + str(message) + '"}', 400)
 
+<<<<<<< HEAD
 @post('/user/register')
+=======
+@post('/user/register/')
+>>>>>>> 5e3abcec721622b8afe1c364aa77f1f02b667a83
 def register():
     user = User()
     user.first_name = request.forms.get('first_name')
@@ -57,3 +61,15 @@ def register():
 @get('/check/:email')
 def check_email(email):
     return {check_email: bool(User.objects(email=email))}
+
+@post('/user/login/')
+def login():
+    email = request.forms.get('email')
+    password = request.forms.get('password')
+    if User.objects(email=email):
+        return {"success": True}
+    else:
+        return error400("Invalid user")
+
+    return {"success": True}
+
