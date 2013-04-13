@@ -29,6 +29,8 @@ function MainVM() {
 
 	/* State */
 	this.isLoggedIn = ko.observable(false);
+	this.user = ko.observable(null);
+	this.session_key = ko.observable("");
 	this.year = ko.observable(2013);
 
 	/* Components */

@@ -35,17 +35,17 @@ function loginpanel() {
 
 				Application.isLoggedIn(true);
 				$('#login').modal('hide');
-				Application.alerts.push({ type: "success", title: "Добре дошъл, " + data.FirstName + "!", text: "Входа е успешен." });
+				Application.alerts.push({ type: "success", title: "Добре дошъл, " + data.user.first_name + "!", text: "Входа е успешен." });
 
 				var options = {path: '/'};
-				if (self.RememberMe()) {
-					var expiration = new Date(data.SessionKey.Expires);
-					options.expires = Math.round((expiration.getTime() - new Date().getTime()) / (24 * 60 * 60 * 1000));
-				}
+				// if (self.RememberMe()) {
+				// 	var expiration = new Date(data.session_key);
+				// 	options.expires = Math.round((expiration.getTime() - new Date().getTime()) / (24 * 60 * 60 * 1000));
+				// }
 
-				$.cookie('userId', data.Id, options);
-				$.cookie('sessionKey', data.SessionKey.Key, options);
-				Application.UpdateUserInfo(data.Id, data.SessionKey.Key);
+				$.cookie('sessionKey', data.session_key.Key, options);
+				Application.user(data.user);
+				Application.session_key(data.session_key);
 			},
 			error: function (data) {
 				if (typeof data.error !== "undefined" && typeof data.message !== "undefined") {
