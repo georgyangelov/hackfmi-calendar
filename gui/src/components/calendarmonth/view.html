@@ -1,0 +1,30 @@
+<div class="calendar">
+	<h5 data-bind="text: Application.MONTHS[month()]"></h5>
+
+	<!-- <div class="header-small">
+		<div class="date-placeholder">П</div>
+		<div class="date-placeholder">В</div>
+		<div class="date-placeholder">С</div>
+		<div class="date-placeholder">Ч</div>
+		<div class="date-placeholder">П</div>
+		<div class="date-placeholder">С</div>
+		<div class="date-placeholder">Н</div>
+	</div> -->
+
+	<!-- ko foreach: dates -->
+	<div class="date" data-bind="
+		text: day,
+		css: {
+			'past': year < $parent.year() || month < $parent.month(),
+			'current': year == $parent.year() &amp;&amp; month == $parent.month(),
+			'future': year > $parent.year() || month > $parent.month(),
+
+			'first-month': month == 0,
+			'first-of-month': day == 1,
+			'first-week-of-month': day <= 7,
+
+			'weekend': weekday >= 6
+		}
+	"></div>
+	<!-- /ko -->
+</div>

@@ -4,17 +4,6 @@ function calendar() {
 	this.year = ko.observable(2013);
 	this.month = ko.observable(3);
 
-
-	/* Date item model */
-	function DateItem(year, month, day, weekday) {
-		this.placeholder = false;
-
-		this.year = year;
-		this.month = month;
-		this.day = day;
-		this.weekday = weekday;
-	}
-
 	/* Placeholders before the actual dates */
 	this.datesPlaceholders = ko.computed(function() {
 		var num = dayOfWeek(new Date(self.year(), 0, 1)) - 1;
