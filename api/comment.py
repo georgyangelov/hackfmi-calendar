@@ -16,8 +16,8 @@ class Comment(Document):
         return json.dumps(representation)
 
 
-@post('/comment/:session_key')
-def publish_comment(session_key):
+@post('/comment/:session_key/:event_id')
+def publish_comment(session_key, event_id):
     comment = Comment()
     users = User.objects()
     user = list(filter(lambda user: session_key in user.session_keys, users))
@@ -27,7 +27,13 @@ def publish_comment(session_key):
         return error403("There is no user with this session key")
     comment.content = request.forms.getunicode('content')
     comment.date = datetime.datetime.now
-    comment.save()
+    events = [event for event in Event.objects() if event.id_field == event_id]
+    if events:
+        event[0].comments.append(comment)
+        event[0].save()
+        comment.save()
+    else:
+        return error403("Invalid event")
     return {"success": True}
 
 
