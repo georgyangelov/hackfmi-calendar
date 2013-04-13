@@ -1,34 +1,7 @@
 <div class="calendar">
-	<div class="header">
-		<div class="date-placeholder">M</div>
-		<div class="date-placeholder">T</div>
-		<div class="date-placeholder">W</div>
-		<div class="date-placeholder">T</div>
-		<div class="date-placeholder">F</div>
-		<div class="date-placeholder">S</div>
-		<div class="date-placeholder">S</div>
-	</div>
-
 	<div class="inner-wrapper">
-		<!-- ko foreach: datesPlaceholders -->
-		<div class="date-placeholder"></div>
-		<!-- /ko -->
-
-		<!-- ko foreach: dates -->
-		<div class="date" data-bind="
-			text: day,
-			css: {
-				'past': year < $parent.year() || month < $parent.month(),
-				'current': year == $parent.year() &amp;&amp; month == $parent.month(),
-				'future': year > $parent.year() || month > $parent.month(),
-
-				'first-month': month == 0,
-				'first-of-month': day == 1,
-				'first-week-of-month': day <= 7,
-
-				'weekend': weekday >= 6
-			}
-		"></div>
+		<!-- ko foreach: months -->
+		<div data-bind="component: $data"></div>
 		<!-- /ko -->
 
 	</div>

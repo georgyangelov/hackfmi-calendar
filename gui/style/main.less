@@ -2,14 +2,32 @@
 @import url('http://fonts.googleapis.com/css?family=Ubuntu:400,500,700&subset=latin,cyrillic');
 @import 'calendar.less';
 
+@contour_color: lighten(black, 70%);
+
 html, body {
 	// font-family: 'Raleway';
 	font-family: 'Ubuntu';
 	height: 100%;
+
+	background-color: #A8D2E0;
 }
 
 header {
 
+}
+
+.events-list {
+	width: percentage(1/5);
+	position: absolute;
+	left: 10px;
+	top: 50px;
+
+	.event {
+		box-shadow: fade(black, 10%) 0 5px 10px;
+		border-radius: 5px;
+		background-color: darken(white, 2%);
+		margin-bottom: 20px;
+	}
 }
 
 #eventpage {
@@ -52,6 +70,12 @@ header {
 		margin-bottom: 5px;
 
 		height: 100%;
+
+		.thumbnail {
+			background-color: #363F43;
+			border-color: white;
+			color: white;
+		}
 
 		h3 {
 			font-size: 15px;

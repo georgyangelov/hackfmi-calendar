@@ -97,14 +97,25 @@ function MainVM() {
 	}
 }
 
+function EventItem() {
+	this.name = ko.observable("Test event");
+	this.date = ko.observable(new Date());
+}
+
 /* Date item model */
-function DateItem(year, month, day, weekday) {
+function DateItem(year, month, day, weekday, calendar) {
 	this.placeholder = false;
 
 	this.year = year;
 	this.month = month;
 	this.day = day;
 	this.weekday = weekday;
+
+	this.events = ko.computed(function() {
+		return calendar.events().filter(function(event) {
+			return event.date().getYear() == year && event.date().getMonth() == month && event.date().getDate() == day;
+		});
+	});
 }
 
 KnockoutComponents.basePath = 'src/components/';
