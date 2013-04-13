@@ -3,14 +3,14 @@ function MainVM() {
 
 	/* Constants */
 	this.MAJORS = [
-		'Информатика',
-		'Компютърни науки',
-		'Математика',
-		'Математика и информатика',
-		'Приложна математика',
-		'Информационни системи',
-		'Софтуерно инженерство',
-		'Статистика'
+		{id: 1, name: 'Информатика'},
+		{id: 2, name: 'Компютърни науки'},
+		{id: 3, name: 'Математика'},
+		{id: 4, name: 'Математика и информатика'},
+		{id: 5, name: 'Приложна математика'},
+		{id: 6, name: 'Информационни системи'},
+		{id: 7, name: 'Софтуерно инженерство'},
+		{id: 8, name: 'Статистика'}
 	];
 	this.MONTHS = [
 		'Януари',
@@ -46,6 +46,9 @@ function MainVM() {
 	/* Panels */
 	this.loginpanel = ko.observable(new loginpanel());
 	this.registerpanel = ko.observable(new registerpanel());
+
+	/* Stuff */
+	this.alerts = ko.observableArray([]).extend({ defaultItem: { title: "", text: "", type: "info" } });
 }
 
 /* Date item model */
@@ -63,4 +66,9 @@ KnockoutComponents.basePath = 'src/components/';
 Application = new MainVM();
 $(function($) {
 	ko.applyBindings(Application);
+
+	// Remove closed alerts from the Application.alerts array
+	$('#alertsContainer .alert').on('closed', function () {
+		Application.alerts.remove(ko.dataFor(this));
+	});
 });

@@ -23,6 +23,12 @@ class User(Document):
         del representation['password']
         return json.dumps(representation)
 
+    def to_json(self):
+        copy = (self.__dict__["_data"]).copy()
+        del copy[None]
+        del copy['password']
+        return json.dumps(copy)
+
 
 @error(400)
 def error400(message):
@@ -40,7 +46,12 @@ def register():
     user.password = request.forms.getunicode('password')
     user.major_id = request.forms.getunicode('major_id')
 
+<<<<<<< HEAD
     name_pattern = r"[A-ЯA-Z][а-яa-z]+(-[A-ЯA-Z][а-яa-z]*)?"
+=======
+    name_pattern = r"[А-ЯA-Z][а-яa-z]+(-[А-ЯA-Z][а-яa-z]*)?"
+
+>>>>>>> 36d3c3903b9841824d7317a7c99e893af731437a
     if user.first_name is None or not re.match(name_pattern, user.first_name):
         error400("Invalid first name")
     if user.last_name is None or not re.match(name_pattern, user.last_name):
@@ -74,11 +85,15 @@ def login():
     email = request.forms.getunicode('email')
     password = request.forms.getunicode('password')
     if User.objects(email=email):
+<<<<<<< HEAD
         return json.dumps({
             'session_key': "mine",
             'user': User.objects(email=email)[0].to_json(),
             'success': True
             })
+=======
+        return User.objects(email=email)[0].to_json()
+>>>>>>> 36d3c3903b9841824d7317a7c99e893af731437a
     else:
         return error400("Invalid user")
 
