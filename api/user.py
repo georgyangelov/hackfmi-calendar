@@ -51,6 +51,7 @@ def register():
     user.grade = request.forms.getunicode('grade')
     user.password = request.forms.getunicode('password')
     user.major_id = request.forms.getunicode('major_id')
+    user.session_keys = []
     name_pattern = r"[A-ЯA-Z][а-яa-z]+(-[A-ЯA-Z][а-яa-z]*)?"
     if user.first_name is None or not re.match(name_pattern, user.first_name):
         error400("Invalid first name")
@@ -91,12 +92,12 @@ def login():
         if m.hexdigest() == user.password:
             session_key = user.create_session_key()
             user.session_keys.append(session_key)
+            user.save()
             return '''{
                         "session_key": "''' + session_key + '''",
                         "user": ''' + user.to_json() + ''',
                         "success": true
                       }'''
-            user.save()
         else:
             error400("Wrong password")
     else:
