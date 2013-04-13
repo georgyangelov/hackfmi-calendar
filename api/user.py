@@ -4,6 +4,7 @@ import hashlib
 import re
 import json
 import datetime
+import random
 
 
 class User(Document):
@@ -23,10 +24,21 @@ class User(Document):
         del representation['password']
         return json.dumps(representation)
 
+    def create_session_key(self):
+        session = str(datetime.datetime.now()) + self.email + str(random.randint(1000000, 9999999))
+        m = hashlib.sha256()
+        m.update(session.encode())
+        return m.hexdigest()
+
 
 @error(400)
 def error400(message):
     raise HTTPResponse('{"success": false, "message": "' + str(message) + '"}', 400)
+
+
+@error(403)
+def error403(message):
+    raise HTTPResponse('{"success": false, "message": "' + str(message) + '"}', 403)
 
 
 @post('/user/register/')
@@ -61,7 +73,7 @@ def register():
     return {"success": True}
 
 
-@get('/check/:email')
+@get('/check/email/:email')
 def check_email(email):
     return {"check_email": bool(User.objects(email=email))}
 
@@ -71,14 +83,37 @@ def login():
     email = request.forms.getunicode('email')
     password = request.forms.getunicode('password')
     if User.objects(email=email):
-        return json.dumps({
-            'session_key': "mine",
-            'user': User.objects(email=email)[0].to_json(),
-            'success': True
-            })
-        return User.objects(email=email)[0].to_json()
+        user = User.objects(email=email)[0]
+
+        m = hashlib.sha256()
+        m.update(password.encode())
+
+        if m.hexdigest() == user.password:
+            session_key = user.create_session_key()
+            user.session_keys.append(session_key)
+            return '''{
+                        "session_key": "''' + session_key + '''",
+                        "user": ''' + user.to_json() + ''',
+                        "success": true
+                      }'''
+        else:
+            error400("Wrong password")
     else:
         return error400("Invalid user")
 
     return {"success": True}
+
+
+def find_user(session_key):
+    users = User.objects()
+    return list(filter(lambda user: session_key in user.session_keys, users))
+
+
+@get('/check/session/:session_key')
+def check_session_key(session_key):
+    if find_user(session_key):
+        return find_user(session_key)[0]
+    else:
+        return error403("There is no user with this session key")
+
 
