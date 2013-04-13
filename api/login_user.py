@@ -31,7 +31,7 @@ def login():
     log_email = request.forms.get('email')
     log_password = request.forms.get('password')
     if User.find(email=log_email):
-        return json.dumps(User.objects.get_or_create(name="Ivan"))
+        return "User is here"
     else:
         return error400("Invalid user")
 
