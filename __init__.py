@@ -1,6 +1,6 @@
 from bottle import *
 from mongoengine import *
-import api
+from api import *
 
 connect('calendar', host='mongodb://hackfmi-calendar-user:kalinka@ds059947.mongolab.com:59947/hackfmi-calendar')
 
