@@ -32,17 +32,6 @@ def error400(message):
 @post('/user/register/')
 def register():
     user = User()
-<<<<<<< HEAD
-    user.first_name = request.forms.get('first_name')
-    user.last_name = request.forms.get('last_name')
-    user.email = request.forms.get('email')
-    user.student_id = request.forms.get('student_id')
-    user.grade = request.forms.get('grade')
-    user.password = request.forms.get('password')
-    user.major_id = request.forms.get('major_id')
-
-    name_pattern = r"[A-ЯA-Z][а-яa-z]+(-[A-ЯA-Z][а-яa-z]*)?"
-=======
     user.first_name = request.forms.getunicode('first_name')
     user.last_name = request.forms.getunicode('last_name')
     user.email = request.forms.getunicode('email')
@@ -50,10 +39,7 @@ def register():
     user.grade = request.forms.getunicode('grade')
     user.password = request.forms.getunicode('password')
     user.major_id = request.forms.getunicode('major_id')
-
     name_pattern = r"[A-ЯA-Z][а-яa-z]+(-[A-ЯA-Z][а-яa-z]*)?"
-
->>>>>>> 7e0d7d7e5fa0104471f2f00aae417f015cb7c9f7
     if user.first_name is None or not re.match(name_pattern, user.first_name):
         error400("Invalid first name")
     if user.last_name is None or not re.match(name_pattern, user.last_name):
@@ -62,11 +48,9 @@ def register():
         error400("Invalid password")
     if user.student_id is None or not re.match("\d{5,6}", user.student_id):
         error400("Invalid faculty number")
-
     m = hashlib.sha256()
     m.update(user.password.encode())
     user.password = m.hexdigest()
-
     try:
         user.save()
     except ValidationError as error:
