@@ -2,6 +2,8 @@ from bottle import *
 from mongoengine import *
 import hashlib
 import re
+import json
+import datetime
 
 
 class User(Document):
@@ -13,6 +15,13 @@ class User(Document):
     grade = IntField(required=True)
     major_id = IntField(required=True)
     tags = ListField(ReferenceField("Tag"))
+    session_keys = ListField(StringField())
+
+    def to_json(self):
+        representation = self.__dict__["_data"].copy()
+        del representation[None]
+        del representation['password']
+        return json.dumps(representation)
 
 
 @error(400)
@@ -23,13 +32,13 @@ def error400(message):
 @post('/user/register/')
 def register():
     user = User()
-    user.first_name = request.forms.get('first_name')
-    user.last_name = request.forms.get('last_name')
-    user.email = request.forms.get('email')
-    user.student_id = request.forms.get('student_id')
-    user.grade = request.forms.get('grade')
-    user.password = request.forms.get('password')
-    user.major_id = request.forms.get('major_id')
+    user.first_name = request.forms.getunicode('first_name')
+    user.last_name = request.forms.getunicode('last_name')
+    user.email = request.forms.getunicode('email')
+    user.student_id = request.forms.getunicode('student_id')
+    user.grade = request.forms.getunicode('grade')
+    user.password = request.forms.getunicode('password')
+    user.major_id = request.forms.getunicode('major_id')
 
     name_pattern = r"[A-ЯA-Z][а-яa-z]+(-[A-ЯA-Z][а-яa-z]*)?"
     if user.first_name is None or not re.match(name_pattern, user.first_name):
@@ -62,10 +71,14 @@ def check_email(email):
 
 @post('/user/login/')
 def login():
-    email = request.forms.get('email')
-    password = request.forms.get('password')
+    email = request.forms.getunicode('email')
+    password = request.forms.getunicode('password')
     if User.objects(email=email):
-        return {"success": True}
+        return json.dumps({
+            'session_key': "mine",
+            'user': User.objects(email=email)[0].to_json(),
+            'success': True
+            })
     else:
         return error400("Invalid user")
 
