@@ -5,8 +5,12 @@
 
 .calendar-month {
 	width: percentage(1/5);
-	height: 300px;
+	height: 220px;
 	margin: percentage(1/50);
+
+	.date {
+		font-size: 16px !important;
+	}
 }
 
 .calendar {
@@ -47,8 +51,8 @@
 		background: @header_background_color;
 
 		.date-placeholder {
-			font-size: 20px;
-			font-weight: bold;
+			font-size: 16px;
+			//font-weight: bold;
 
 			line-height: @calendar_date_height;
 			text-align: center;

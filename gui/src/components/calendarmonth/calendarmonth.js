@@ -21,12 +21,13 @@ function calendarmonth(year, month) {
 
 		for (var i = 0; i < daysBeforeFirstDate; i++) {
 			lastMonthDates.setDate(lastMonthDates.getDate() + 1);
-			days.push(new DateItem(lastMonthDates.getFullYear(), lastMonthDates.getMonth(), lastMonthDates.getDate()));
+			days.push(new DateItem(lastMonthDates.getFullYear(), lastMonthDates.getMonth(), lastMonthDates.getDate(), dayOfWeek(lastMonthDates)));
 		}
 
 		/* Render current month */
 		for (var day = 1; day <= lastDay.getDate(); day++) {
-			days.push(new DateItem(firstDay.getFullYear(), firstDay.getMonth(), day));
+			days.push(new DateItem(firstDay.getFullYear(), firstDay.getMonth(), day, dayOfWeek(firstDay)));
+			firstDay.setDate(firstDay.getDate() + 1);
 		}
 
 		/* Render dates from next month */
