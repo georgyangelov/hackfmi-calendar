@@ -2,7 +2,6 @@ import datetime
 from bottle import *
 from mongoengine import *
 from api.user import *
-from bson.objectid import ObjectId
 
 
 class Event(Document):
@@ -32,6 +31,8 @@ def create_events(session_key):
     for user in User.objects():
         if session_key in user.session_keys:
             event.creator = user
+        else:
+            error403("There is no user with that session key")
     event.tags = request.forms.getunicode('Tags')
     event.comments = request.forms.getunicode('Comment')
     event.users_approved.append(user)
