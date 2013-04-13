@@ -7,3 +7,5 @@ class Event(Document):
     date = DateTimeField(required=True, default=datetime.datetime.now)
     creator = ReferenceField("User")
     tags = ListField(ReferenceField("Tag"))
+    comments = ListField(ReferenceField("Comment"))
+    users_approved = ListField(ReferenceField("User"))
