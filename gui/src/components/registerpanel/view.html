@@ -12,6 +12,13 @@
 				<p class="help-block" data-bind="visible: first_name.hasModError, text: first_name.errorMessage"></p>
 			</div>
 		</div>
+		<div class="control-group" data-bind="css: {error: last_name.hasModError}">
+			<label class="control-label" for="last_name">Фамилия</label>
+			<div class="controls">
+				<input type="text" id="last_name" class="input-xlarge" name="last_name" data-bind="value: last_name" />
+				<p class="help-block" data-bind="visible: last_name.hasModError, text: last_name.errorMessage"></p>
+			</div>
+		</div>
 		<div class="control-group" data-bind="css: {error: student_id.hasModError}">
 			<label class="control-label" for="student_id">Факултетен номер</label>
 			<div class="controls">
@@ -23,18 +30,11 @@
 			<label class="control-label" for="major">Специалност и курс</label>
 			<div class="controls">
 				<!--input type="text" id="major" class="input-medium" name="major" data-bind="value: major" /-->
-				<select data-bind="options: Application.MAJORS"></select>
+				<select data-bind="options: Application.MAJORS, optionsText: 'name', optionsValue: 'id', value: major"></select>
 				<input type="text" id="grade" class="input-mini" name="grade" data-bind="value: grade" />
 
 				<p class="help-block" data-bind="visible: major.hasModError, text: major.errorMessage"></p>
 				<p class="help-block" data-bind="visible: grade.hasModError, text: grade.errorMessage"></p>
-			</div>
-		</div>
-		<div class="control-group" data-bind="css: {error: last_name.hasModError}">
-			<label class="control-label" for="last_name">Фамилия</label>
-			<div class="controls">
-				<input type="text" id="last_name" class="input-xlarge" name="last_name" data-bind="value: last_name" />
-				<p class="help-block" data-bind="visible: last_name.hasModError, text: last_name.errorMessage"></p>
 			</div>
 		</div>
 		<div class="control-group" data-bind="css: {error: email.hasModError}">

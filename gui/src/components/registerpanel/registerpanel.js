@@ -24,7 +24,7 @@ function registerpanel() {
     this.grade = ko.observable("").extend({
         validation: {
             required: true,
-            regex: /[1-9][0-9]+/,
+            regex: /[0-9]/,
             message: "Въведи курс"
         }
     });
@@ -45,12 +45,12 @@ function registerpanel() {
 
                 // Verify that the email is available
                 amplify.request({
-                    resourceId: "checkemail",
+                    resourceId: "checkEmail",
                     data: {
                         email: value
                     },
                     success: function (data) {
-                        if (!data.available) {
+                        if (data.check_email) {
                             self.email.invalidate("Мейлът вече е зает");
                         }
                     }
@@ -85,8 +85,11 @@ function registerpanel() {
         amplify.request({
             resourceId: "register",
             data: {
+                student_id: self.student_id(),
                 first_name: self.first_name(),
                 last_name: self.last_name(),
+                grade: self.grade(),
+                major_id: self.major(),
                 email: self.email(),
                 password: self.password()
             },

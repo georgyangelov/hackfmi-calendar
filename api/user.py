@@ -31,15 +31,16 @@ def error400(message):
 @post('/user/register/')
 def register():
     user = User()
-    user.first_name = request.forms.get('first_name')
-    user.last_name = request.forms.get('last_name')
-    user.email = request.forms.get('email')
-    user.student_id = request.forms.get('student_id')
-    user.grade = request.forms.get('grade')
-    user.password = request.forms.get('password')
-    user.major_id = request.forms.get('major_id')
+    user.first_name = request.forms.getunicode('first_name')
+    user.last_name = request.forms.getunicode('last_name')
+    user.email = request.forms.getunicode('email')
+    user.student_id = request.forms.getunicode('student_id')
+    user.grade = request.forms.getunicode('grade')
+    user.password = request.forms.getunicode('password')
+    user.major_id = request.forms.getunicode('major_id')
 
-    name_pattern = r"[A-ЯA-Z][а-яa-z]+(-[A-ЯA-Z][а-яa-z]*)?"
+    name_pattern = r"[А-ЯA-Z][а-яa-z]+(-[А-ЯA-Z][а-яa-z]*)?"
+
     if user.first_name is None or not re.match(name_pattern, user.first_name):
         error400("Invalid first name")
     if user.last_name is None or not re.match(name_pattern, user.last_name):

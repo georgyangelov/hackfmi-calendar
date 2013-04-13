@@ -10,9 +10,20 @@ amplify.request.decoders.errorDecoder =
     };
 
 amplify.request.define(
+    "checkEmail", "ajax",
+    {
+        url: "/check/{email}",
+        type: "GET",
+        dataType: "json",
+        cache: false,
+        decoder: "errorDecoder"
+    }
+);
+
+amplify.request.define(
     "login", "ajax",
     {
-        url: "../api/login",
+        url: "/user/login/",
         type: "POST",
         dataType: "json",
         cache: false,
@@ -23,7 +34,7 @@ amplify.request.define(
 amplify.request.define(
     "register", "ajax",
     {
-        url: "../api/register",
+        url: "/user/register/",
         type: "POST",
         dataType: "json",
         cache: false,
