@@ -4,6 +4,7 @@ import hashlib
 import re
 import json
 import datetime
+import random
 
 
 class User(Document):
@@ -22,6 +23,12 @@ class User(Document):
         del representation[None]
         del representation['password']
         return json.dumps(representation)
+
+    def create_session_key(self):
+        session = str(datetime.datetime.now()) + self.email + str(random.randint(1000000, 9999999))
+        m = hashlib.sha256()
+        m.update(session.encode())
+        return m.hexdigest()
 
 
 @error(400)
@@ -75,12 +82,15 @@ def login():
     email = request.forms.getunicode('email')
     password = request.forms.getunicode('password')
     if User.objects(email=email):
-        return json.dumps({
-            'session_key': "mine",
-            'user': User.objects(email=email)[0].to_json(),
-            'success': True
-            })
-        return User.objects(email=email)[0].to_json()
+        user = User.objects(email=email)[0]
+        if password == user.password:
+            return '''{
+                        "session_key": ''' + user.create_session_key() + ''',
+                        "user": ''' + user.to_json() + ''',
+                        "success": True
+                      }'''
+        else:
+            error400("Wrong password")
     else:
         return error400("Invalid user")
 
