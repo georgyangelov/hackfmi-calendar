@@ -1,5 +1,7 @@
 <div class="calendar">
-	<div class="header-small">
+	<h5 data-bind="text: Application.MONTHS[month()]"></h5>
+
+	<!-- <div class="header-small">
 		<div class="date-placeholder">П</div>
 		<div class="date-placeholder">В</div>
 		<div class="date-placeholder">С</div>
@@ -7,7 +9,7 @@
 		<div class="date-placeholder">П</div>
 		<div class="date-placeholder">С</div>
 		<div class="date-placeholder">Н</div>
-	</div>
+	</div> -->
 
 	<!-- ko foreach: dates -->
 	<div class="date" data-bind="

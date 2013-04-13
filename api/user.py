@@ -8,25 +8,16 @@ class User(Document):
     first_name = StringField(required=True)
     last_name = StringField(required=True)
     password = StringField(required=True)
-    salt = StringField(required=True)
-    email = StringField(required=True)
-    student_id = IntField(required=True)
+    email = EmailField(required=True, unique=True)
+    student_id = IntField(required=True, unique=True)
     grade = IntField(required=True)
     major_id = IntField(required=True)
     tags = ListField(ReferenceField("Tag"))
 
 
 @error(400)
-def error400(error, message):
-    return message
-
-print("Test")
-
-
-def check_register(*args):
-    if None in args:
-        return error400()
-
+def error400(message):
+    raise HTTPResponse('{"success": false, "message": "' + str(message) + '"}', 400)
 
 @post('/register/')
 def register():
@@ -36,23 +27,29 @@ def register():
     user.email = request.forms.get('email')
     user.student_id = request.forms.get('student_id')
     user.grade = request.forms.get('grade')
+    user.password = request.forms.get('password')
     user.major_id = request.forms.get('major_id')
-    user.tags = request.forms.get('tags')
-    m = hashlib.sha256()
-    m.update(request.forms.get('password'))
-    user.password = m.hexdigest()
-    name_pattern = r"[A-Я][а-я]+(-[A-Я][а-я]*)?"
-    if re.match(name_pattern, user.first_name):
-        return error400("Invalid first name")
-    if re.match(name_pattern, user.last_name):
-        return error400("Invalid last name")
-    if re.match("[^\s]{6,}", user.password):
-        return error400("Invalid password")
-    if re.match("[^_\d][A-Za-z\d_\.][^_\.]@\w{3,5}.\w{2,3}", user.email): #Need better regex
-        return error400("Invalid e-mail")
-    if re.match("\d{5,6}", user.student_id):
-        return error400("Invalid faculty number")
-    check_register(major_id, grade, tags)
-    user.save()
 
-    {status: True}
+    name_pattern = r"[A-ЯA-Z][а-яa-z]+(-[A-ЯA-Z][а-яa-z]*)?"
+    if user.first_name is None or not re.match(name_pattern, user.first_name):
+        error400("Invalid first name")
+    if user.last_name is None or not re.match(name_pattern, user.last_name):
+        error400("Invalid last name")
+    if user.password is None or not re.match("[^\s]{6,}", user.password):
+        error400("Invalid password")
+    if user.student_id is None or not re.match("\d{5,6}", user.student_id):
+        error400("Invalid faculty number")
+
+    m = hashlib.sha256()
+    m.update(user.password.encode())
+    user.password = m.hexdigest()
+
+    try:
+        user.save()
+    except ValidationError as error:
+        return error400(error)
+    except NotUniqueError as error:
+        return error400('Email or faculty number not unique')
+
+
+    return {"success": True}
