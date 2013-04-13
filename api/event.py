@@ -26,14 +26,17 @@ def create_events(session_key):
     event.name = request.forms.getunicode('name')
     event.description = request.forms.getunicode('description')
     event.date = request.forms.getunicode('date')
-    for user in User.objects():
-        if session_key in user.session_keys:
-            event.creator = user
-        else:
-            return error403("There is no user with that session key")
+    users = User.objects()
+    print(users)
+    add_users = [user for user in users if session_key in user.session_keys]
+    print(add_users)
+    if add_users:
+        event.creator = add_users[0]
+        event.users_approved.append(event.creator)
+    else:
+        return error403("There is no user with that session key")
     event.tags = request.forms.getunicode('Tags')
     event.comments = request.forms.getunicode('Comment')
-    event.users_approved.append(user)
     event.save()
     return {"success": True}
 
