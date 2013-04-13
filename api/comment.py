@@ -1,6 +1,5 @@
 import datetime
 from mongoengine import *
-from user import User
 
 
 class Comment(Document):
