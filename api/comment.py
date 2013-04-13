@@ -21,6 +21,8 @@ def publish_comment(session_key):
         return error403("There is no user with this session key")
     comment.content = request.forms.getunicode('content')
     comment.date = datetime.datetime.now
+    comment.save()
+    return {"success": True}
 
 
 @get('/comments/:event_id')
