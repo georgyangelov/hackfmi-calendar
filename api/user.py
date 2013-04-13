@@ -96,6 +96,7 @@ def login():
                         "user": ''' + user.to_json() + ''',
                         "success": true
                       }'''
+            user.save()
         else:
             error400("Wrong password")
     else:
