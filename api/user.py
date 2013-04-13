@@ -85,15 +85,12 @@ def login():
     email = request.forms.getunicode('email')
     password = request.forms.getunicode('password')
     if User.objects(email=email):
-<<<<<<< HEAD
         return json.dumps({
             'session_key': "mine",
             'user': User.objects(email=email)[0].to_json(),
             'success': True
             })
-=======
         return User.objects(email=email)[0].to_json()
->>>>>>> 36d3c3903b9841824d7317a7c99e893af731437a
     else:
         return error400("Invalid user")
 
