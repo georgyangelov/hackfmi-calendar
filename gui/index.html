@@ -18,6 +18,7 @@
 	<script src="src/components/loginpanel/loginpanel.js"></script>
 	<script src="src/components/registerpanel/registerpanel.js"></script>
 	<script src="src/components/calendarmonth/calendarmonth.js"></script>
+	<script src="src/components/event/event.js"></script>
 	<!-- /components -->
 
 	<script src="src/main.js"></script>
@@ -33,7 +34,7 @@
 <body>
 	<header class="row-fluid">
 			<div class="span4" id="header">
-				<h1>ФМИ Календар</h1>
+				<h2>ФМИ Календар - <span data-bind="text: year"></span></h2>
 			</div>
 
 			<div class="span4" id="alertsContainer" data-bind="foreach: alerts">
@@ -61,20 +62,61 @@
 	<div id="login" class="modal fade hide" data-bind="component: loginpanel"></div>
 	<div id="register" class="modal fade hide" data-bind="component: registerpanel"></div>
 
-	<!-- <div class="container"> -->
+	<div id="eventpage" data-bind="component: event"></div>
 
+	<!-- ko ifnot: isEventPage -->
+	<!-- <div class="container"> -->
 	<div data-bind="component: leftCalendar" class="calendar-month calendar-left"></div>
+	<button id="previous_month" class="btn btn-success" data-bind="click: prev_month">Предишен месец</button>
+
 	<div data-bind="component: centerCalendar" class="calendar-month calendar-center"></div>
 	<div data-bind="component: rightCalendar" class="calendar-month calendar-right"></div>
-
+	<button id="next_month" class="btn btn-success" data-bind="click: next_month">Следващ месец</button>
 	<!-- </div> -->
 
-	<ul id="vertical-event-list">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
+	<ul class="vertical-event-list">
+		<li>
+			<a href="#" class="thumbnail">
+				<img src="http://placekitten.com/250/150" />
+
+				<h3>Test event title</h3>
+				<p>test event description</p>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="thumbnail">
+				<img src="http://placekitten.com/250/150" />
+
+				<h3>Test event title</h3>
+				<p>test event description</p>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="thumbnail">
+				<img src="http://placekitten.com/250/150" />
+
+				<h3>Test event title</h3>
+				<p>test event description</p>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="thumbnail">
+				<img src="http://placekitten.com/250/150" />
+
+				<h3>Test event title</h3>
+				<p>test event description</p>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="thumbnail">
+				<img src="http://placekitten.com/250/150" />
+
+				<h3>Test event title</h3>
+				<p>test event description</p>
+			</a>
+		</li>
 	</ul>
+	<!-- /ko -->
 
 </body>
 </html>
