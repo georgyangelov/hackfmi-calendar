@@ -63,11 +63,18 @@
 
 	<!-- <div class="container"> -->
 
-	<!-- ko foreach: months -->
-	<div data-bind="component: $data" class="calendar-month pull-left"></div>
-	<!-- /ko -->
+	<div data-bind="component: leftCalendar" class="calendar-month calendar-left"></div>
+	<div data-bind="component: centerCalendar" class="calendar-month calendar-center"></div>
+	<div data-bind="component: rightCalendar" class="calendar-month calendar-right"></div>
 
 	<!-- </div> -->
+
+	<ul id="vertical-event-list">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
 
 </body>
 </html>

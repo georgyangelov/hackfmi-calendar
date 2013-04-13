@@ -31,19 +31,12 @@ function MainVM() {
 	this.isLoggedIn = ko.observable(false);
 	this.user = ko.observable(null);
 	this.session_key = ko.observable("");
-	this.year = ko.observable(2013);
 
 	/* Components */
 	this.calendar = ko.observable(new calendar());
-	this.months = ko.computed(function() {
-		var monthArray = [];
-
-		for (var i = 0; i < 11; i++) {
-			monthArray[i] = new calendarmonth(self.year(), i);
-		}
-
-		return monthArray;
-	});
+	this.leftCalendar = ko.observable(new calendarmonth(2013, 2));
+	this.centerCalendar = ko.observable(new calendarmonth(2013, 3));
+	this.rightCalendar = ko.observable(new calendarmonth(2013, 4));
 
 	/* Panels */
 	this.loginpanel = ko.observable(new loginpanel());

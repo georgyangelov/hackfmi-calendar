@@ -20,7 +20,7 @@ function loginpanel() {
 		return this.email.isValid() && this.password.isValid();
 	}, this);
 
-	this.error = ko.observable();
+	this.error = ko.observable("");
 
 	self.submit = function () {
 
