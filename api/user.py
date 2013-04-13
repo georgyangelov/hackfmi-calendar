@@ -46,12 +46,8 @@ def register():
     user.password = request.forms.getunicode('password')
     user.major_id = request.forms.getunicode('major_id')
 
-<<<<<<< HEAD
     name_pattern = r"[A-ЯA-Z][а-яa-z]+(-[A-ЯA-Z][а-яa-z]*)?"
-=======
-    name_pattern = r"[А-ЯA-Z][а-яa-z]+(-[А-ЯA-Z][а-яa-z]*)?"
 
->>>>>>> 36d3c3903b9841824d7317a7c99e893af731437a
     if user.first_name is None or not re.match(name_pattern, user.first_name):
         error400("Invalid first name")
     if user.last_name is None or not re.match(name_pattern, user.last_name):
