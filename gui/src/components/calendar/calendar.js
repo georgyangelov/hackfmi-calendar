@@ -1,8 +1,8 @@
-function calendar() {
+function calendar(year, month) {
 	var self = this;
 
-	this.year = ko.observable(2013);
-	this.month = ko.observable(3);
+	this.year = ko.observable(year);
+	this.month = ko.observable(month);
 
 	/* Placeholders before the actual dates */
 	this.datesPlaceholders = ko.computed(function() {
