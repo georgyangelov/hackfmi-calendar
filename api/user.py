@@ -51,9 +51,7 @@ def register():
     user.grade = request.forms.getunicode('grade')
     user.password = request.forms.getunicode('password')
     user.major_id = request.forms.getunicode('major_id')
-
     name_pattern = r"[A-ЯA-Z][а-яa-z]+(-[A-ЯA-Z][а-яa-z]*)?"
-
     if user.first_name is None or not re.match(name_pattern, user.first_name):
         error400("Invalid first name")
     if user.last_name is None or not re.match(name_pattern, user.last_name):
@@ -62,11 +60,9 @@ def register():
         error400("Invalid password")
     if user.student_id is None or not re.match("\d{5,6}", user.student_id):
         error400("Invalid faculty number")
-
     m = hashlib.sha256()
     m.update(user.password.encode())
     user.password = m.hexdigest()
-
     try:
         user.save()
     except ValidationError as error:
@@ -88,14 +84,19 @@ def login():
     password = request.forms.getunicode('password')
     if User.objects(email=email):
         user = User.objects(email=email)[0]
-        if password == user.password:
+
+        m = hashlib.sha256()
+        m.update(password.encode())
+
+        if m.hexdigest() == user.password:
             session_key = user.create_session_key()
-            push(user.session_keys, session_key)
+            user.session_keys.append(session_key)
             return '''{
                         "session_key": "''' + session_key + '''",
                         "user": ''' + user.to_json() + ''',
                         "success": true
                       }'''
+            user.save()
         else:
             error400("Wrong password")
     else:
@@ -114,6 +115,12 @@ def check_session_key(session_key):
     if find_user(session_key):
         return find_user(session_key)[0]
     else:
-        return error403("There is no user with this session_key")
+        return error403("There is no user with this session key")
 
 
+@get('/user/:session_key')
+def user_by_session_key(session_key):
+    if find_user(session_key):
+        return find_user(session_key)[0]
+    else:
+        return error403("There is no user with this session key")
