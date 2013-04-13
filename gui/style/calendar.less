@@ -1,13 +1,12 @@
-@calendar_date_height: 50px;
+@calendar_date_height: 30px;
 @day_color: black;
 @weekend_color: darken(red, 10%);
 @header_background_color: green;
 
-#calendar-wrapper {
-	margin: 0 auto;
-
-	width: 50%;
-	height: 100%;
+.calendar-month {
+	width: percentage(1/5);
+	height: 300px;
+	margin: percentage(1/50);
 }
 
 .calendar {
@@ -32,6 +31,19 @@
 
 		width: 100%;
 
+		background: @header_background_color;
+
+		.date-placeholder {
+			font-size: 20px;
+			font-weight: bold;
+
+			line-height: @calendar_date_height;
+			text-align: center;
+		}
+	}
+
+	.header-small {
+		width: 100%;
 		background: @header_background_color;
 
 		.date-placeholder {

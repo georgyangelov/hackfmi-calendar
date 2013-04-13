@@ -1,0 +1,69 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal">×</button>
+	<h3>Регистрация</h3>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal">
+
+		<div class="control-group" data-bind="css: {error: first_name.hasModError}">
+			<label class="control-label" for="first_name">Име</label>
+			<div class="controls">
+				<input type="text" id="first_name" class="input-xlarge" name="first_name" data-bind="value: first_name" />
+				<p class="help-block" data-bind="visible: first_name.hasModError, text: first_name.errorMessage"></p>
+			</div>
+		</div>
+		<div class="control-group" data-bind="css: {error: student_id.hasModError}">
+			<label class="control-label" for="student_id">Факултетен номер</label>
+			<div class="controls">
+				<input type="text" id="student_id" class="input-xlarge" name="student_id" data-bind="value: student_id" />
+				<p class="help-block" data-bind="visible: student_id.hasModError, text: student_id.errorMessage"></p>
+			</div>
+		</div>
+		<div class="control-group" data-bind="css: {error: major.hasModError() || grade.hasModError()}">
+			<label class="control-label" for="major">Специалност и курс</label>
+			<div class="controls">
+				<!--input type="text" id="major" class="input-medium" name="major" data-bind="value: major" /-->
+				<select data-bind="options: Application.MAJORS"></select>
+				<input type="text" id="grade" class="input-mini" name="grade" data-bind="value: grade" />
+
+				<p class="help-block" data-bind="visible: major.hasModError, text: major.errorMessage"></p>
+				<p class="help-block" data-bind="visible: grade.hasModError, text: grade.errorMessage"></p>
+			</div>
+		</div>
+		<div class="control-group" data-bind="css: {error: last_name.hasModError}">
+			<label class="control-label" for="last_name">Фамилия</label>
+			<div class="controls">
+				<input type="text" id="last_name" class="input-xlarge" name="last_name" data-bind="value: last_name" />
+				<p class="help-block" data-bind="visible: last_name.hasModError, text: last_name.errorMessage"></p>
+			</div>
+		</div>
+		<div class="control-group" data-bind="css: {error: email.hasModError}">
+			<label class="control-label" for="email">Мейл</label>
+			<div class="controls">
+				<input type="text" id="email" class="input-xlarge" name="email" data-bind="value: email" />
+				<p class="help-block" data-bind="visible: email.hasModError, text: email.errorMessage"></p>
+			</div>
+		</div>
+		<div class="control-group" data-bind="css: {error: password.hasModError}">
+			<label class="control-label" for="password">Парола</label>
+			<div class="controls">
+				<input type="password" id="password" class="input-xlarge" name="password" data-bind="value: password, valueUpdate: 'afterkeydown'" />
+				<p class="help-block" data-bind="visible: password.hasModError, text: password.errorMessage"></p>
+			</div>
+		</div>
+		<div class="control-group" data-bind="css: {error: repeat_password.hasModError}">
+			<label class="control-label" for="password2">Повтори паролата</label>
+			<div class="controls">
+				<input type="password" id="password2" class="input-xlarge" name="password2" data-bind="value: repeat_password, valueUpdate: 'afterkeydown'" />
+				<p class="help-block" data-bind="visible: repeat_password.hasModError, text: repeat_password.errorMessage"></p>
+			</div>
+		</div>
+
+	</div>
+</div>
+<div class="modal-footer">
+	<h4 data-bind="optionalText: error" class="error pull-left"></h4>
+
+	<a href="#" class="btn" data-dismiss="modal">Затвори</a>
+	<input type="submit" class="btn btn-primary" value="Регистрация" data-bind="click: register, enable: isFormValid" />
+</div>

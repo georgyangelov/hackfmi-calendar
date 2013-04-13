@@ -9,9 +9,15 @@
 	<script src="libs/knockout-components.js"></script>
 	<script src="libs/knockout-validation.js"></script>
 	<!--<script src="libs/knockout-fixed.js"></script>-->
+	<script src="libs/amplify.min.js"></script>
+	<script src="libs/jquery.cookie.js"></script>
+	<script src="src/apiroutes.js"></script>
 
 	<!-- components -->
 	<script src="src/components/calendar/calendar.js"></script>
+	<script src="src/components/loginpanel/loginpanel.js"></script>
+	<script src="src/components/registerpanel/registerpanel.js"></script>
+	<script src="src/components/calendarmonth/calendarmonth.js"></script>
 	<!-- /components -->
 
 	<script src="src/main.js"></script>
@@ -21,12 +27,48 @@
 	<link rel="stylesheet" type="text/less" href="style/main.less">
 
 	<script src="libs/less-1.3.3.min.js"></script>
+
+	<meta charset="utf-8" />
 </head>
 <body>
+	<header class="row-fluid">
+			<div class="span4" id="header">
+				<h1>ФМИ Календар</h1>
+			</div>
 
-	<div class="container">
-		<div id="calendar-wrapper" data-bind="component: calendar"></div>
-	</div>
+			<div class="span4"></div>
+			<!-- <div class="span4" id="alertsContainer" data-bind="foreach: alerts">
+				<div class="alert fade in" data-bind="css: {'alert-success': type == 'success', 'alert-info': type == 'info', 'alert-error': type == 'error'}">
+					<a class="close" data-dismiss="alert" href="#">×</a>
+					<strong data-bind="optionalText: title"></strong>
+					<span data-bind="optionalText: text" />
+				</div>
+			</div> -->
+
+			<nav class="span4" id="menu">
+				<ul class="nav nav-pills pull-right">
+					<!-- ko ifnot: isLoggedIn -->
+					<li><a href="#login" data-toggle="modal">Login</a></li>
+					<li><a href="#register" data-toggle="modal">Register</a></li>
+					<!-- /ko -->
+
+					<!-- ko if: isLoggedIn -->
+
+					<!-- /ko -->
+				</ul>
+			</nav>
+	</header>
+
+	<div id="login" class="modal fade hide" data-bind="component: loginpanel"></div>
+	<div id="register" class="modal fade hide" data-bind="component: registerpanel"></div>
+
+	<!-- <div class="container"> -->
+
+	<!-- ko foreach: months -->
+	<div data-bind="component: $data" class="calendar-month pull-left"></div>
+	<!-- /ko -->
+
+	<!-- </div> -->
 
 </body>
 </html>
