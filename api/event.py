@@ -17,6 +17,7 @@ class Event(Document):
     def to_json(self):
         representation = self.__dict__["_data"].copy()
         del representation[None]
+        representation['date'] = str(representation['date'])
         return json.dumps(representation)
 
 
@@ -25,11 +26,10 @@ def create_events(session_key):
     event = Event()
     event.name = request.forms.getunicode('name')
     event.description = request.forms.getunicode('description')
-    event.date = request.forms.getunicode('date')
+    event.date = datetime.datetime.strptime(request.forms.getunicode('date'), '%b %d %Y %I:%M%p')
+    print(event.date)
     users = User.objects()
-    print(users)
     add_users = [user for user in users if session_key in user.session_keys]
-    print(add_users)
     if add_users:
         event.creator = add_users[0]
         event.users_approved.append(event.creator)
