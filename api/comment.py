@@ -2,12 +2,19 @@ import datetime
 from mongoengine import *
 from bottle import *
 from api.user import *
+from api.event import *
 
 
 class Comment(Document):
     author = ReferenceField("User")
     content = StringField(required=True)
     date = DateTimeField(required=True, default=datetime.datetime.now)
+
+    def to_json(self):
+        representation = self.__dict__["_data"].copy()
+        del representation[None]
+        del representation['password']
+        return json.dumps(representation)
 
 
 @post('/comment/:session_key')
@@ -26,5 +33,8 @@ def publish_comment(session_key):
 
 
 @get('/comments/:event_id')
-def viem_comments(event_id):
-    return (Event.objects(event_id=event_id)[0]).comments
+def view_comments(event_id):
+    if Event.objects(id_field=event_id):
+        return map(lambda comment: comment.to_json(), (Event.objects(id_field=event_id)[0]).comments)
+    else:
+        return error403("There is no such event")

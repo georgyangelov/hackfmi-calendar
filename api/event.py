@@ -15,6 +15,12 @@ class Event(Document):
     users_approved = ListField(ReferenceField("User"))
     id_field = ObjectIdField()
 
+    def to_json(self):
+        representation = self.__dict__["_data"].copy()
+        del representation[None]
+        del representation['password']
+        return json.dumps(representation)
+
 
 @post('/events/session/:session_key')
 def create_events(session_key):
@@ -33,13 +39,19 @@ def create_events(session_key):
     return {"success": True}
 
 
-@get('/events/:tag')
+@get('/events/tags/:tag')
 def get_events(tag):
     events = Event.objects()
-    return [event for event in events if tag in event.tags]
+    return [event.to_json() for event in events if tag in event.tags]
 
 
 @get('/events/:event_id')
 def get_events_by_id(event_id):
     events = Event.objects()
-    return [event for event in events if event_id in event.event_id]
+    return [event.to_json() for event in events if event_id in event.id_field]
+
+
+@get('/events/month/:month_id')
+def get_events_by_month(month_id):
+    events = Event.objects()
+    return [event.to_json() for event in events if event.date.date().month == month_id]
