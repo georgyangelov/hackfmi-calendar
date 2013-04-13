@@ -10,6 +10,7 @@ class Event(Document):
     tags = ListField(ReferenceField("Tag"))
     comments = ListField(ReferenceField("Comment"))
     users_approved = ListField(ReferenceField("User"))
+    event_id = ObjectIdField(required=True, unique=True)
 
 
 @post('/events/session/:session_key')
@@ -29,5 +30,10 @@ def events(session_key):
 @get('/events/:tag')
 def get_events(tag):
     events = Event.objects()
-    print("Hellloooo")
     return [event for event in events if tag in event.tags]
+
+
+@get('/events/:event_id')
+def get_events_by_id(event_id):
+    events = Event.objects()
+    return [event for event in events if event_id in event.event_id]
