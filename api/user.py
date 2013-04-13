@@ -19,7 +19,7 @@ class User(Document):
 def error400(message):
     raise HTTPResponse('{"success": false, "message": "' + str(message) + '"}', 400)
 
-@post('/register/')
+@post('/user/register/')
 def register():
     user = User()
     user.first_name = request.forms.get('first_name')
@@ -51,5 +51,16 @@ def register():
     except NotUniqueError as error:
         return error400('Email or faculty number not unique')
 
+
+    return {"success": True}
+
+@post('/user/login/')
+def login():
+    email = request.forms.get('email')
+    password = request.forms.get('password')
+    if User.objects(email=email):
+        return {"success": True}
+    else:
+        return error400("Invalid user")
 
     return {"success": True}
