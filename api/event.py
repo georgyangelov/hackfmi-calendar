@@ -2,6 +2,7 @@ import datetime
 from bottle import *
 from mongoengine import *
 from api.user import *
+import re
 
 
 class Event(Document):
@@ -58,5 +59,11 @@ def get_events_by_id(event_id):
 
 @get('/events/month/:month_id')
 def get_events_by_month(month_id):
+    month = int(month_id)
+    if month < 0 or month > 11:
+        return error400("Invalid month")
     events = Event.objects()
-    return [event.to_json() for event in events if event.date.date().month == month_id]
+    if events:
+        return [event.to_json() for event in events if event.date.date().month == month + 1]
+    else:
+        return error403("There are no events in this month")
