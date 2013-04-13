@@ -88,9 +88,13 @@ def login():
     password = request.forms.getunicode('password')
     if User.objects(email=email):
         user = User.objects(email=email)[0]
-        if password == user.password:
+
+        m = hashlib.sha256()
+        m.update(password.encode())
+
+        if m.hexdigest() == user.password:
             session_key = user.create_session_key()
-            push(user.session_keys, session_key)
+            user.session_keys.append(session_key)
             return '''{
                         "session_key": "''' + session_key + '''",
                         "user": ''' + user.to_json() + ''',
@@ -114,6 +118,6 @@ def check_session_key(session_key):
     if find_user(session_key):
         return find_user(session_key)[0]
     else:
-        return error403("There is no user with this session_key")
+        return error403("There is no user with this session key")
 
 
