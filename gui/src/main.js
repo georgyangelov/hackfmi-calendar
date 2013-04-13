@@ -113,7 +113,7 @@ function DateItem(year, month, day, weekday, calendar) {
 
 	this.events = ko.computed(function() {
 		return calendar.events().filter(function(event) {
-			return event.date().getYear() == year && event.date().getMonth() == month && event.date().getDate() == day;
+			return event.date().getFullYear() == year && event.date().getMonth() == month && event.date().getDate() == day;
 		});
 	});
 }

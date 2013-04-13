@@ -3,6 +3,17 @@
 @weekend_color: darken(red, 10%);
 @header_background_color: white;
 
+.event-dots {
+	.event-dot {
+		width: 16px;
+		height: 16px;
+
+		background-image: url('event-icon.png');
+
+		display: inline-block;
+	}
+}
+
 .calendar-month {
 	width: percentage(1/5);
 	margin: percentage(1/50);
@@ -15,6 +26,10 @@
 	border: 1px solid @contour_color;
 	padding: 10px;
 	border-radius: 10px;
+
+	.event-dots {
+		display: none;
+	}
 }
 
 .calendar-left, .calendar-right {
@@ -43,10 +58,20 @@
 	.date {
 		height: 60px !important;
 	}
+
+	.event-dots {
+		display: block !important;
+	}
 }
 
 #eventpage .date.past, #eventpage .date.future {
 	visibility: hidden !important;
+}
+
+.calendar-left, .calendar-right {
+	.has-events {
+		background-color: #A8D2E0;
+	}
 }
 
 .calendar {
@@ -110,6 +135,7 @@
 			}
 		}
 
+		position: relative;
 		border-left: 1px solid darken(white, 5%);
 		border-top: 1px solid darken(white, 3%);
 
