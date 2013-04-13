@@ -15,12 +15,13 @@ class User(Document):
     grade = IntField(required=True)
     major_id = IntField(required=True)
     tags = ListField(ReferenceField("Tag"))
+    session_keys = ListField(StringField())
 
     def to_json(self):
-        copy = (self.__dict__["_data"]).copy()
-        del copy[None]
-        del copy['password']
-        return json.dumps(copy)
+        representation = self.__dict__["_data"].copy()
+        del representation[None]
+        del representation['password']
+        return json.dumps(representation)
 
 
 @error(400)
@@ -31,6 +32,7 @@ def error400(message):
 @post('/user/register/')
 def register():
     user = User()
+<<<<<<< HEAD
     user.first_name = request.forms.get('first_name')
     user.last_name = request.forms.get('last_name')
     user.email = request.forms.get('email')
@@ -40,6 +42,18 @@ def register():
     user.major_id = request.forms.get('major_id')
 
     name_pattern = r"[A-ЯA-Z][а-яa-z]+(-[A-ЯA-Z][а-яa-z]*)?"
+=======
+    user.first_name = request.forms.getunicode('first_name')
+    user.last_name = request.forms.getunicode('last_name')
+    user.email = request.forms.getunicode('email')
+    user.student_id = request.forms.getunicode('student_id')
+    user.grade = request.forms.getunicode('grade')
+    user.password = request.forms.getunicode('password')
+    user.major_id = request.forms.getunicode('major_id')
+
+    name_pattern = r"[A-ЯA-Z][а-яa-z]+(-[A-ЯA-Z][а-яa-z]*)?"
+
+>>>>>>> 7e0d7d7e5fa0104471f2f00aae417f015cb7c9f7
     if user.first_name is None or not re.match(name_pattern, user.first_name):
         error400("Invalid first name")
     if user.last_name is None or not re.match(name_pattern, user.last_name):
@@ -70,9 +84,14 @@ def check_email(email):
 
 @post('/user/login/')
 def login():
-    email = request.forms.get('email')
-    password = request.forms.get('password')
+    email = request.forms.getunicode('email')
+    password = request.forms.getunicode('password')
     if User.objects(email=email):
+        return json.dumps({
+            'session_key': "mine",
+            'user': User.objects(email=email)[0].to_json(),
+            'success': True
+            })
         return User.objects(email=email)[0].to_json()
     else:
         return error400("Invalid user")
