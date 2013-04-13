@@ -114,7 +114,7 @@ def find_user(session_key):
 @get('/check/session/:session_key')
 def check_session_key(session_key):
     if find_user(session_key):
-        return find_user(session_key)[0]
+        return find_user(session_key)[0].to_json()
     else:
         return error403("There is no user with this session key")
 
@@ -122,7 +122,7 @@ def check_session_key(session_key):
 @get('/user/:session_key')
 def user_by_session_key(session_key):
     if find_user(session_key):
-        return find_user(session_key)[0]
+        return find_user(session_key)[0].to_json()
     else:
         return error403("There is no user with this session key")
 
