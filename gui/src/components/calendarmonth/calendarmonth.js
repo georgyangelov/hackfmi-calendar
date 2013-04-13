@@ -4,7 +4,23 @@ function calendarmonth(year, month) {
 	this.year = ko.observable(year);
 	this.month = ko.observable(month);
 
-	this.events = ko.observableArray([new EventItem(), new EventItem()]);
+	this.events = ko.observableArray([]);
+
+	this.loadEvents = function() {
+		amplify.request({
+			resourceId: "get_events_month",
+			data: {
+				month: self.month()
+			},
+			success: function (data) {
+				self.events(data);
+			},
+			error: function (data) {
+				console.log(data);
+			}
+		});
+	};
+	this.loadEvents();
 
 	/* Gets day of week (1 to 7) and starts with Monday */
 	function dayOfWeek(date) {

@@ -1,11 +1,14 @@
 <div class="events-list">
+	<ul class="event-list">
 	<!-- ko foreach: events -->
-	<div class="event">
-		<h4 data-bind="text: name"></h4>
-		<i class="pull-right" data-bind="text: date"></i>
-		<div style="clear: both"></div>
-	</div>
+		<li>
+			<a href="#" class="thumbnail">
+				<h3 data-bind="text: name"></h3>
+				<p data-bind="text: description"></p>
+			</a>
+		</li>
 	<!-- /ko -->
+	</ul>
 </div>
 
 <div class="calendar-container">

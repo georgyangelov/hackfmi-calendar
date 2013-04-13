@@ -35,7 +35,7 @@ function MainVM() {
 	this.year = ko.observable(2013);
 	this.month = ko.observable(3);
 
-	this.event = ko.observable(null);
+	this.event = ko.observable(new event());
 	this.isEventPage = ko.computed(function() {
 		return self.event() != null;
 	});
@@ -100,6 +100,7 @@ function MainVM() {
 function EventItem() {
 	this.name = ko.observable("Test event");
 	this.date = ko.observable(new Date());
+	this.description = ko.observable("Test event description");
 }
 
 /* Date item model */
