@@ -2,7 +2,6 @@ import datetime
 from bottle import *
 from mongoengine import *
 from api.user import *
-from bson.objectid import ObjectId
 
 
 class Event(Document):
