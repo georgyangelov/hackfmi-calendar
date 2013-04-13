@@ -1,0 +1,88 @@
+@calendar_date_height: 50px;
+@day_color: black;
+@weekend_color: darken(red, 10%);
+@header_background_color: green;
+
+#calendar-wrapper {
+	margin: 0 auto;
+
+	width: 50%;
+	height: 100%;
+}
+
+.calendar {
+	width: 100%;
+	height: 100%;
+	position: relative;
+
+	.inner-wrapper {
+		width: 100%;
+		height: 100%;
+
+		box-sizing: border-box;
+		padding-top: @calendar_date_height;
+
+		overflow: auto;
+	}
+
+	.header {
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		width: 100%;
+
+		background: @header_background_color;
+
+		.date-placeholder {
+			font-size: 20px;
+			font-weight: bold;
+
+			line-height: @calendar_date_height;
+			text-align: center;
+		}
+	}
+
+	.date, .date-placeholder {
+		float: left;
+		width: percentage(1/7);
+		height: @calendar_date_height;
+	}
+
+	.date {
+		&:hover {
+			background: darken(white, 3%);
+			cursor: pointer;
+		}
+
+		&.past, &.future {
+			color: fade(@day_color, 50%);
+
+			&.weekend {
+				color: fade(@weekend_color, 50%);
+			}
+		}
+		&.current {
+			color: @day_color;
+
+			&.weekend {
+				color: @weekend_color;
+			}
+		}
+
+		&.first-week-of-month:not(.first-month) {
+			@color: darken(white, 15%);
+			border-top: solid 1px @color;
+
+			&.first-of-month {
+				border-left: solid 1px @color;
+			}
+		}
+
+		font-size: 20px;
+
+		// Padding is included in the width
+		box-sizing: border-box;
+		padding: 2%;
+	}
+}
