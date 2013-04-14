@@ -18,6 +18,7 @@ class Comment(Document):
                 "content": self.content,
                 "date": str(self.date),
                 "comment_id": self.comment_id
+                "author_id": self.author
                 }
 
 @post('/comment/:session_key/:event_id')
