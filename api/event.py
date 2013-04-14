@@ -2,7 +2,11 @@ import datetime
 from bottle import *
 from mongoengine import *
 from api.user import *
+<<<<<<< HEAD
 import bson.dbref
+=======
+import hashlib
+>>>>>>> f23d70733484c1f5d193c79cebf32df858f0579e
 
 
 class Event(Document):
@@ -42,7 +46,10 @@ def create_events(session_key):
     else:
         return error403("There is no user with that session key")
     event.tags = request.forms.getunicode('tags')
-    event.id_field = str(datetime.datetime.now()) + event.name + str(random.randint(1000000, 9999999))
+    user_id = str(datetime.datetime.now()) + event.name + str(random.randint(1000000, 9999999))
+    m = hashlib.sha256()
+    m.update(user_id.encode())
+    event.id_field = m.hexdigest()
     event.save()
     return {"success": True}
 
