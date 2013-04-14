@@ -34,7 +34,7 @@
 </head>
 <body>
 	<header class="row-fluid">
-			<div class="span4" id="header">
+			<div class="span4" id="header" data-bind="click: openHome">
 				<img src="style/fmievents.png" />
 			</div>
 
@@ -64,7 +64,9 @@
 	<div id="register" class="modal fade hide" data-bind="component: registerpanel"></div>
 	<div id="eventpanel" class="modal fade hide" data-bind="component: eventpanel"></div>
 
+	<!-- ko if: isEventPage -->
 	<div id="eventpage" data-bind="component: event"></div>
+	<!-- /ko -->
 
 	<!-- ko ifnot: isEventPage -->
 	<!-- <div class="container"> -->

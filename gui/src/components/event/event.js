@@ -26,6 +26,10 @@ function event(event) {
 
 	this.newCommentText = ko.observable("");
 	this.addComment = function() {
+		if (self.newCommentText().length == 0) {
+			return;
+		}
+
 		amplify.request({
 			resourceId: "add_comment",
 			data: {
@@ -36,6 +40,7 @@ function event(event) {
 			success: function (data) {
 				Application.alerts.push({ type: "success", title: "Коментарът е добавен!", text: "Благодарим за мнението." });
 
+				self.newCommentText("");
 				self.loadComments();
 			},
 			error: function (data) {

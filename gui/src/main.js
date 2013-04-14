@@ -81,6 +81,10 @@ function MainVM() {
 	this.alerts = ko.observableArray([]).extend({ defaultItem: { title: "", text: "", type: "info" } });
 
 	/* Methods */
+	this.openHome = function() {
+		self.event(null);
+	};
+
 	this.next_month = function() {
 		var next_month = self.month() + 1;
 		if (next_month > 11) {
@@ -89,7 +93,7 @@ function MainVM() {
 		}
 
 		self.month(next_month);
-	}
+	};
 
 	this.prev_month = function() {
 		var prev_month = self.month() - 1;
@@ -99,7 +103,7 @@ function MainVM() {
 		}
 
 		self.month(prev_month);
-	}
+	};
 }
 
 function EventItem(data) {
@@ -117,6 +121,14 @@ function EventItem(data) {
 	};
 }
 
+function avatarLink(id) {
+	return '/user/avatar/' + id;
+}
+
+function pad(n) {
+    return (n < 10) ? ("0" + n) : n;
+}
+
 function convertEventItems(data) {
 	return data.map(function(obj) {
 		return new EventItem(obj);
@@ -124,6 +136,10 @@ function convertEventItems(data) {
 }
 
 function truncateText(text, length) {
+	if (text == null) {
+		return null;
+	}
+
 	return text.length > length ? text.substring(0, length) + " ..." : text;
 };
 
