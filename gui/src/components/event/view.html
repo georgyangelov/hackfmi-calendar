@@ -50,9 +50,9 @@
     	<!-- ko foreach: comments -->
         <div class="comments_content" style="padding-bottom: 30px; margin-bottom:20px;">
         <div class="avatars" style="float:left;">
-            <img data-bind="attr: {'src': '/user/avatar/' + author.id_field}" style="width:30px;height:30px"/>
+            <img data-bind="attr: {'src': avatarLink(author_id)}"/>
             <br />
-            <span style="font-weight:bold;" data-bind="text: author.name"></span>
+            <span style="font-weight:bold;" data-bind="text: author"></span>
         </div>
         <p style="float:left;" data-bind="text: content"></p>
         <div style="clear: both;"></div>

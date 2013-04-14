@@ -121,6 +121,10 @@ function EventItem(data) {
 	};
 }
 
+function avatarLink(id) {
+	return '/user/avatar/' + id;
+}
+
 function convertEventItems(data) {
 	return data.map(function(obj) {
 		return new EventItem(obj);
