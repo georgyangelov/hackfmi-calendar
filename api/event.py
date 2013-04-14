@@ -2,6 +2,7 @@ import datetime
 from bottle import *
 from mongoengine import *
 from api.user import *
+import bson.dbref
 
 
 class Event(Document):
@@ -16,7 +17,9 @@ class Event(Document):
 
     def to_json(self):
         representation = self.__dict__["_data"].copy()
-        del representation[None]
+        print(representation(dereference['creator']))
+        print(representation['users_approved'])
+        del representation['id_field']
         representation['date'] = str(representation['date'])
         return json.dumps(representation)
 
