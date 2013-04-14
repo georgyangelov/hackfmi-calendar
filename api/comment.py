@@ -6,15 +6,18 @@ from api.event import *
 
 
 class Comment(Document):
-    author = ReferenceField("User")
+    author = IntField() #user_id
     content = StringField(required=True)
     date = DateTimeField(required=True, default=datetime.datetime.now)
+    comment_id = StringField()
 
     def to_json(self):
-        representation = self.__dict__["_data"].copy()
-        del representation[None]
-        return json.dumps(representation)
-
+        return {
+                "author": self.author
+                "content": self.content
+                "date": str(date)
+                "comment_id": self.comment_id
+                }
 
 @post('/comment/:session_key/:event_id')
 def publish_comment(session_key, event_id):
@@ -22,14 +25,18 @@ def publish_comment(session_key, event_id):
     users = User.objects()
     user = list(filter(lambda user: session_key in user.session_keys, users))
     if find_user(session_key):
-        comment.author = user[0]
+        comment.author = user[0].student_id
     else:
         return error403("There is no user with this session key")
+    com_id = str(datetime.datetime.now()) + comment.author + str(random.randint(1000000, 9999999))
+    m = hashlib.sha256()
+    m.update(com_id.encode())
+    comment.comment_id = m.hexdigest()
     comment.content = request.forms.getunicode('content')
     comment.date = datetime.datetime.now
     events = [event for event in Event.objects() if event.id_field == event_id]
     if events:
-        event[0].comments.append(comment)
+        event[0].comments.append(comment.comment_id)
         event[0].save()
         comment.save()
     else:
@@ -41,6 +48,6 @@ def publish_comment(session_key, event_id):
 def view_comments(event_id):
     events = [event for event in Event.objects() if event.id_field == event_id]
     if events:
-        return map(lambda comment: comment.to_json(), events[0].comments)
+        return map(lambda comment: json.dumps(comment.to_json()), events[0].comments)
     else:
         return error403("There is no such event")
