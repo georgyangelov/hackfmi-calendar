@@ -10,8 +10,8 @@ class Event(Document):
     description = StringField()
     date = DateTimeField(required=True, default=datetime.datetime.now)
     creator = IntField() #user_id
-    tags = ListField(ReferenceField("Tag"))
-    comments = ListField(ReferenceField("Comment"))
+    tags = ListField(StringField())
+    comments = ListField(StringField())
     users_approved = ListField(IntField())
     id_field = StringField()
 
@@ -41,13 +41,17 @@ def create_events(session_key):
         event.users_approved.append(event.creator)
     else:
         return error403("There is no user with that session key")
-    event.tags = request.forms.getunicode('tags')
+    tags_list = request.forms.getunicode('tags')
+    events.tags = tags_list.split(" ")
     user_id = str(datetime.datetime.now()) + event.name + str(random.randint(1000000, 9999999))
     m = hashlib.sha256()
     m.update(user_id.encode())
     event.id_field = m.hexdigest()
     event.save()
     return {"success": True}
+
+
+@post('/events/comments/')
 
 
 @get('/events/tags/:tag')
