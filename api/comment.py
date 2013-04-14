@@ -7,7 +7,7 @@ from api.event import *
 
 class Comment(Document):
     author = IntField() #user_id
-    content = StringField()
+    content = StringField(required=True)
     date = DateTimeField(required=True, default=datetime.datetime.now)
     comment_id = StringField()
 
