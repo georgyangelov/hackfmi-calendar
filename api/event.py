@@ -41,8 +41,11 @@ def create_events(session_key):
         event.users_approved.append(event.creator)
     else:
         return error403("There is no user with that session key")
-    tags_list = request.forms.getunicode('tags')
-    events.tags = tags_list.split(" ")
+    try:
+        tags_list = request.forms.getunicode('tags')
+        events.tags = tags_list.split(" ")
+    except:
+        pass
     user_id = str(datetime.datetime.now()) + event.name + str(random.randint(1000000, 9999999))
     m = hashlib.sha256()
     m.update(user_id.encode())
