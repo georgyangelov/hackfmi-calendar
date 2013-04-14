@@ -11,7 +11,7 @@ function event(event) {
 		amplify.request({
 			resourceId: "get_comments",
 			data: {
-				eventid: self.event().id_field
+				eventid: self.event().id()
 			},
 			success: function (data) {
 				self.comments(data);
@@ -30,8 +30,8 @@ function event(event) {
 			resourceId: "add_comment",
 			data: {
 				session_key: Application.session_key(),
-				eventid: self.event().id_field,
-				content:
+				eventid: self.event().id(),
+				content: self.newCommentText()
 			},
 			success: function (data) {
 				self.comments(data);

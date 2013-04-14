@@ -28,7 +28,7 @@ def publish_comment(session_key, event_id):
         comment.author = user[0].student_id
     else:
         return error403("There is no user with this session key")
-    com_id = str(datetime.datetime.now()) + comment.author + str(random.randint(1000000, 9999999))
+    com_id = str(datetime.datetime.now()) + str(comment.author) + str(random.randint(1000000, 9999999))
     m = hashlib.sha256()
     m.update(com_id.encode())
     comment.comment_id = m.hexdigest()
@@ -36,8 +36,8 @@ def publish_comment(session_key, event_id):
     comment.date = datetime.datetime.now
     events = [event for event in Event.objects() if event.id_field == event_id]
     if events:
-        event[0].comments.append(comment.comment_id)
-        event[0].save()
+        events[0].comments.append(comment.comment_id)
+        events[0].save()
         comment.save()
     else:
         return error403("Invalid event")
