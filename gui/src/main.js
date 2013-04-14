@@ -103,6 +103,8 @@ function MainVM() {
 }
 
 function EventItem(data) {
+	var self = this;
+
 	this.name = ko.observable(data.name);
 	this.date = ko.observable(new Date(Date.parse(data.date)));
 	this.description = ko.observable(data.description);

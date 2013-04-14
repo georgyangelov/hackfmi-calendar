@@ -3,10 +3,10 @@
 	<!-- ko foreach: events -->
 		<li>
 			<a href="#" class="thumbnail">
-			 <h3 data-bind="text: name"></h3> 
-			
-				
-				<p data-bind="text: description"></p> 
+			 <h3 data-bind="text: name"></h3>
+
+
+				<p data-bind="text: description"></p>
 			</a>
 		</li>
 	<!-- /ko -->
@@ -14,7 +14,7 @@
 </div>
 
 <div class="event-container border-panel">
-	<h3>Python Seminar</h3>
+	<h3 data-bind="text: event().name">Python Seminar</h3>
 	<!--
 <div style="float:left; border: 1px solid lightblue;border-radius:4px;">
 	<p>Потвърдиха</p>
@@ -27,18 +27,18 @@
         <p id="countAppr"style="font-weight:bold;font-size:48px;float:none">74</p>
 	</div>
 	<p style="font-weight:bold; font-size:18px">
-	Кога: 12.12 17:00
+	Кога: <span data-bind="text: event().date">12.12 17:00</span>
 	</p>
 	<div>
 	<p style="font-weight:bold; font-size:18px">Повече:</p>
-	<p style="word-wrap: break-word;font-size:18px"> Python е
+	<p style="word-wrap: break-word;font-size:18px" data-bind="text: event().description"> Python е
 модерен обектно-ориентиран скриптов език с прост синтаксис и мощни
 изразни средства. В последните години в софтуерната индустрия все по-
 често се ползват интерпретируеми езици за да се осигури по-висока скорост
 на разработка и...</p>
 	</div>
 	<p style="font-weight:bold; font-size:18px">Тагове</p>
-    <div>	
+    <div>
 	<span class="btn">Python</span>
 	 <span class="btn">Unit testing</span>
 	 <span class="btn">PEP8</span>
@@ -57,7 +57,7 @@
             <br />
             <span style="font-weight:bold">Георги</span>
         </div>
-        <div style="float:left;"> 
+        <div style="float:left;">
             Семинарът ще бъде страхотен.
         </div>
         </div>
@@ -68,7 +68,7 @@
             <br />
             <span style="font-weight:bold">Стефан</span>
         </div>
-        <div style="float:left;"> 
+        <div style="float:left;">
             Ще говори ли Guido van Rossum?
         </div>
         </div>
