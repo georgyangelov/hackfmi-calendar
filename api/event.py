@@ -4,6 +4,7 @@ from mongoengine import *
 from api.user import *
 import hashlib
 import random
+import requests
 
 
 class Event(Document):
@@ -16,6 +17,7 @@ class Event(Document):
     users_approved = ListField(IntField())
     id_field = StringField()
 
+
     def to_json(self):
         return {
                 "name": self.name,
@@ -27,6 +29,16 @@ class Event(Document):
                 "users_approved": self.users_approved,
                 "id_field": self.id_field
                 }
+
+
+def send_simple_message(recipients, event):
+    return requests.post(
+         "https://api.mailgun.net/v2/hackfmi.mailgun.org/messages",
+        auth=("api", "key-67uze-ya7hvvgna3im8hsz3qr9r4ytz6"),
+        data={"from": "postmaster@hackfmi.mailgun.org",
+              "to": [recipients],
+              "subject": "FMIEVENTS" + event.name,
+              "text": event.description})
 
 
 @post('/events/session/:session_key')
@@ -49,6 +61,11 @@ def create_events(session_key):
     m.update(user_id.encode())
     event.id_field = m.hexdigest()
     event.save()
+
+    for tag in event.tags:
+        subscribed = [user for user in User.objects() if tag in user.tags]
+        send_simple_message(subscribed, event)
+
     return {"success": True}
 
 
