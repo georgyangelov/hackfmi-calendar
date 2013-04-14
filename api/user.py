@@ -5,6 +5,7 @@ import re
 import json
 import datetime
 import random
+import urllib
 
 
 class User(Document):
@@ -127,3 +128,9 @@ def user_by_session_key(session_key):
         return error403("There is no user with this session key")
 
 
+@route('/user/avatar/:user_id')
+def avatar(user_id):
+    email = User.objects(student_id=user_id)
+    gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
+    gravatar_url += urllib.urlencode({'d': "http://placekitten.com/80/80", 's': str(80)})
+    redirect(gravatar_url)
