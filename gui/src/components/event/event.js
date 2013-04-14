@@ -34,8 +34,6 @@ function event(event) {
 				content: self.newCommentText()
 			},
 			success: function (data) {
-				self.comments(data);
-
 				Application.alerts.push({ type: "success", title: "Коментарът е добавен!", text: "Благодарим за мнението." });
 
 				self.loadComments();

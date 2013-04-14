@@ -123,6 +123,10 @@ function convertEventItems(data) {
 	});
 }
 
+function truncateText(text, length) {
+	return text.length > length ? text.substring(0, length) + " ..." : text;
+};
+
 /* Date item model */
 function DateItem(year, month, day, weekday, calendar) {
 	var self = this;
