@@ -22,7 +22,7 @@
 	<div style="float:right;border: 1px solid lightblue; border-radius:5px">
         <p style="font-weight:bold;font-size:20px">Потвърдиха</p>
         <img src="style/thumbsup.png" style="width:45px; height:45px;float:left"/>
-        <p id="countAppr"style="font-weight:bold;font-size:40px;float:none">74</p>
+        <p id="countAppr"style="font-weight:bold;font-size:40px;float:none">0</p>
 	</div>
 	<p style="font-weight:bold; font-size:15px">
 	Кога: <span data-bind="text: event().date().getDate() + '.' + (event().date().getMonth() + 1) + ' ' + event().date().getHours() + ':' + event().date().getMinutes()">12.12 17:00</span>
@@ -37,10 +37,10 @@
 	</div>
 	<p style="font-weight:bold; font-size:15px">Тагове</p>
     <div data-bind="foreach: event().tags">
-		<span class="badge badge-info" data-bind="$data"></span>
+		<span class="badge badge-info" data-bind="text: $data"></span>
 	</div>
     <div style="margin-top:20px">
-	<button class="btn btn-large btn-primary" onclick="document.getElementById('countAppr').innerHTML = 75" >Потвърди</button>
+	<button class="btn btn-primary" onclick="document.getElementById('countAppr').innerHTML = 1" >Потвърди</button>
     </div>
 </div>
 <div class="event-container border-panel" style="margin-top:20px">
@@ -60,8 +60,13 @@
         <!-- /ko -->
 
         <div class="comment-add">
+        	<!-- ko if: Application.isLoggedIn -->
         	<textarea class="input-xlarge" placeholder="Добави коментар" data-bind="value: newCommentText"></textarea>
         	<button class="btn btn-primary" data-bind="click: addComment">Добави</button>
+        	<!-- /ko -->
+        	<!-- ko ifnot: Application.isLoggedIn -->
+        	<h3 style="font-size: 15px">Влезте в системата, за да коментирате</h3>
+        	<!-- /ko -->
         </div>
     </div>
 </div>
