@@ -51,8 +51,6 @@ def create_events(session_key):
     return {"success": True}
 
 
-@post('/events/comments/')
-
 
 @get('/events/tags/:tag')
 def get_events(tag):
