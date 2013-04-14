@@ -9,11 +9,23 @@ html, body {
 	font-family: 'Ubuntu';
 	height: 100%;
 
-	background-color: #A8D2E0;
+	background-color: #ebebeb;
 }
 
 header {
 
+}
+
+.event-container {
+	width: 50%;
+	margin: 0 auto;
+	position: relative;
+	right: 25px;
+	top: 10px;
+
+	h3 {
+		text-align: center;
+	}
 }
 
 .border-panel {
@@ -27,7 +39,7 @@ header {
 	width: percentage(1/5);
 	position: absolute;
 	left: 10px;
-	top: 50px;
+	top: 10px;
 
 	.event {
 		margin-bottom: 20px;
@@ -37,12 +49,15 @@ header {
 }
 
 #eventpage {
+	height: 88%;
+	position: relative;
+
 	.calendar-container {
-		position: fixed;
-		bottom: 0;
+		position: absolute;
+		top: 0;
 		right: 0;
 		width: percentage(1/4);
-		height: 92%;
+		height: 100%;
 
 		overflow: auto;
 	}
