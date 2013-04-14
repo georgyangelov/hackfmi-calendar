@@ -14,10 +14,11 @@ class Comment(Document):
     def to_json(self):
         user = User.objects(student_id=self.author)[0]
         return {
-                "author": user.first_name + user.last_name,
+                "author": user.first_name + ' ' + user.last_name,
                 "content": self.content,
                 "date": str(self.date),
                 "comment_id": self.comment_id
+                "author_id": self.author
                 }
 
 @post('/comment/:session_key/:event_id')
