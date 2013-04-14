@@ -2,10 +2,8 @@
 	<ul class="event-list">
 	<!-- ko foreach: events -->
 		<li>
-			<a href="#" class="thumbnail">
-			 <h3 data-bind="text: name"></h3>
-
-
+			<a href="#" class="thumbnail" data-bind="click: switchToEvent">
+				<h3 data-bind="text: name"></h3>
 				<p data-bind="text: description"></p>
 			</a>
 		</li>
@@ -27,7 +25,7 @@
         <p id="countAppr"style="font-weight:bold;font-size:48px;float:none">74</p>
 	</div>
 	<p style="font-weight:bold; font-size:18px">
-	Кога: <span data-bind="text: event().date">12.12 17:00</span>
+	Кога: <span data-bind="text: event().date().getDate() + '.' + (event().date().getMonth() + 1) + ' ' + event().date().getHours() + ':' + event().date().getMinutes()">12.12 17:00</span>
 	</p>
 	<div>
 	<p style="font-weight:bold; font-size:18px">Повече:</p>
