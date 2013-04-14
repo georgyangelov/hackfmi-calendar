@@ -35,7 +35,7 @@ function loginpanel() {
 
 				Application.isLoggedIn(true);
 				$('#login').modal('hide');
-				Application.alerts.push({ type: "success", title: "Добре дошъл, " + data.user.first_name + "!", text: "Входа е успешен." });
+				Application.alerts.push({ type: "success", title: "Здравей, " + data.user.first_name + "!", text: "Входът е успешен." });
 
 				var options = {path: '/'};
 				// if (self.RememberMe()) {
