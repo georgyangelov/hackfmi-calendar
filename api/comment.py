@@ -7,7 +7,7 @@ from api.event import *
 
 class Comment(Document):
     author = IntField() #user_id
-    content = StringField(required=True)
+    content = StringField()
     date = DateTimeField(required=True, default=datetime.datetime.now)
     comment_id = StringField()
 
@@ -33,7 +33,7 @@ def publish_comment(session_key, event_id):
     m.update(com_id.encode())
     comment.comment_id = m.hexdigest()
     comment.content = request.forms.getunicode('content')
-    comment.date = datetime.datetime.now
+    comment.date = datetime.datetime.now()
     events = [event for event in Event.objects() if event.id_field == event_id]
     if events:
         events[0].comments.append(comment.comment_id)
