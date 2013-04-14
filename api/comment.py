@@ -13,9 +13,9 @@ class Comment(Document):
 
     def to_json(self):
         return {
-                "author": self.author
-                "content": self.content
-                "date": str(date)
+                "author": self.author,
+                "content": self.content,
+                "date": str(date),
                 "comment_id": self.comment_id
                 }
 
