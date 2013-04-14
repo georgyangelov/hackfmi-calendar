@@ -68,6 +68,10 @@ function MainVM() {
 		return new calendarmonth(next_year, next_month);
 	});
 
+	this.events = ko.computed(function() {
+		return self.centerCalendar().events().slice(0, 5);
+	});
+
 	/* Panels */
 	this.loginpanel = ko.observable(new loginpanel());
 	this.registerpanel = ko.observable(new registerpanel());
@@ -98,14 +102,26 @@ function MainVM() {
 	}
 }
 
-function EventItem() {
-	this.name = ko.observable("Test event");
-	this.date = ko.observable(new Date());
-	this.description = ko.observable("Test event description");
+function EventItem(data) {
+	this.name = ko.observable(data.name);
+	this.date = ko.observable(new Date(Date.parse(data.date)));
+	this.description = ko.observable(data.description);
+
+	this.switchToEvent = function() {
+		Application.event(new event(self));
+	};
+}
+
+function convertEventItems(data) {
+	return data.map(function(obj) {
+		return new EventItem(obj);
+	});
 }
 
 /* Date item model */
 function DateItem(year, month, day, weekday, calendar) {
+	var self = this;
+
 	this.placeholder = false;
 
 	this.year = year;
@@ -118,6 +134,11 @@ function DateItem(year, month, day, weekday, calendar) {
 			return event.date().getFullYear() == year && event.date().getMonth() == month && event.date().getDate() == day;
 		});
 	});
+
+	this.switchToEvent = function() {
+		if (self.events().length > 0)
+			Application.event(new event(self.events()[0]));
+	};
 }
 
 KnockoutComponents.basePath = 'src/components/';

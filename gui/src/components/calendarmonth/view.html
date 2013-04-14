@@ -13,6 +13,7 @@
 
 	<!-- ko foreach: dates -->
 	<div class="date" data-bind="
+		click: switchToEvent,
 		css: {
 			'past': year < $parent.year() || month < $parent.month(),
 			'current': year == $parent.year() &amp;&amp; month == $parent.month(),

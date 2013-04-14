@@ -51,7 +51,6 @@
 					<!-- ko ifnot: isLoggedIn -->
 					<li><a href="#login" data-toggle="modal">Login</a></li>
 					<li><a href="#register" data-toggle="modal">Register</a></li>
-					<li><a href="#eventpanel" data-toggle="modal">Add event</a></li>
 					<!-- /ko -->
 
 					<!-- ko if: isLoggedIn -->
@@ -90,46 +89,14 @@
 	<!-- </div> -->
 
 	<ul class="vertical-event-list">
+		<!-- ko foreach: events -->
 		<li>
-			<a href="#" class="thumbnail">
-
-
-				<h3>Test event title</h3>
-				<p>test event description</p>
+			<a href="#" class="thumbnail" data-bind="click: switchToEvent">
+				<h3 data-bind="text: name"></h3>
+				<p data-bind="text: description"></p>
 			</a>
 		</li>
-		<li>
-			<a href="#" class="thumbnail">
-
-
-				<h3>Test event title</h3>
-				<p>test event description</p>
-			</a>
-		</li>
-		<li>
-			<a href="#" class="thumbnail">
-
-
-				<h3>Test event title</h3>
-				<p>test event description</p>
-			</a>
-		</li>
-		<li>
-			<a href="#" class="thumbnail">
-
-
-				<h3>Test event title</h3>
-				<p>test event description</p>
-			</a>
-		</li>
-		<li>
-			<a href="#" class="thumbnail">
-
-
-				<h3>Test event title</h3>
-				<p>test event description</p>
-			</a>
-		</li>
+		<!-- /ko -->
 	</ul>
 	<!-- /ko -->
 
