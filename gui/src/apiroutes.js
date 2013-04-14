@@ -63,3 +63,25 @@ amplify.request.define(
         decoder: "errorDecoder"
     }
 );
+
+amplify.request.define(
+    "get_comments", "ajax",
+    {
+        url: "/comments/{eventid}",
+        type: "GET",
+        dataType: "json",
+        cache: false,
+        decoder: "errorDecoder"
+    }
+);
+
+amplify.request.define(
+    "add_comment", "ajax",
+    {
+        url: "/comment/{session_key}/{eventid}",
+        type: "POST",
+        dataType: "json",
+        cache: false,
+        decoder: "errorDecoder"
+    }
+);

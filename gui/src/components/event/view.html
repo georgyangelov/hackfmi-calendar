@@ -20,26 +20,24 @@
 -->
 	<p></p>
 	<div style="float:right;border: 1px solid lightblue; border-radius:5px">
-        <p style="font-weight:bold;font-size:24px">Потвърдиха</p>
+        <p style="font-weight:bold;font-size:20px">Потвърдиха</p>
         <img src="style/thumbsup.png" style="width:45px; height:45px;float:left"/>
-        <p id="countAppr"style="font-weight:bold;font-size:48px;float:none">74</p>
+        <p id="countAppr"style="font-weight:bold;font-size:40px;float:none">74</p>
 	</div>
-	<p style="font-weight:bold; font-size:18px">
+	<p style="font-weight:bold; font-size:15px">
 	Кога: <span data-bind="text: event().date().getDate() + '.' + (event().date().getMonth() + 1) + ' ' + event().date().getHours() + ':' + event().date().getMinutes()">12.12 17:00</span>
 	</p>
 	<div>
-	<p style="font-weight:bold; font-size:18px">Повече:</p>
-	<p style="word-wrap: break-word;font-size:18px" data-bind="text: event().description"> Python е
+	<p style="font-weight:bold; font-size:15px">Повече:</p>
+	<p style="word-wrap: break-word;font-size:15px" data-bind="text: event().description"> Python е
 модерен обектно-ориентиран скриптов език с прост синтаксис и мощни
 изразни средства. В последните години в софтуерната индустрия все по-
 често се ползват интерпретируеми езици за да се осигури по-висока скорост
 на разработка и...</p>
 	</div>
-	<p style="font-weight:bold; font-size:18px">Тагове</p>
-    <div>
-	<span class="btn">Python</span>
-	 <span class="btn">Unit testing</span>
-	 <span class="btn">PEP8</span>
+	<p style="font-weight:bold; font-size:15px">Тагове</p>
+    <div data-bind="foreach: event().tags">
+		<span class="badge badge-info" data-bind="$data"></span>
 	</div>
     <div style="margin-top:20px">
 	<button class="btn btn-large btn-primary" onclick="document.getElementById('countAppr').innerHTML = 75" >Потвърди</button>
@@ -49,26 +47,21 @@
     <h4>Коментари</h4>
     <div class="comments" style="margin:5px; padding:15px">
 
+    	<!-- ko foreach: comments -->
         <div class="comments_content" style="padding-bottom: 30px; margin-bottom:20px;">
         <div class="avatars" style="float:left;">
-            <img src="style/python.jpg" style="width:30px;height:30px"/>
+            <img data-bind="attr: {'src': '/user/avatar/' + author.id_field}" style="width:30px;height:30px"/>
             <br />
-            <span style="font-weight:bold">Георги</span>
+            <span style="font-weight:bold;" data-bind="text: author.name"></span>
         </div>
-        <div style="float:left;">
-            Семинарът ще бъде страхотен.
+        <p style="float:left;" data-bind="text: content"></p>
+        <div style="clear: both;"></div>
         </div>
-        </div>
+        <!-- /ko -->
 
-         <div class="comments_content" style="padding-bottom:30px;">
-        <div class="avatars" style="float:left;">
-            <img src="style/python.jpg" style="width:30px;height:30px"/>
-            <br />
-            <span style="font-weight:bold">Стефан</span>
-        </div>
-        <div style="float:left;">
-            Ще говори ли Guido van Rossum?
-        </div>
+        <div class="comment-add">
+        	<textarea class="input-xlarge" placeholder="Добави коментар" data-bind="value: newCommentText"></textarea>
+        	<button class="btn btn-primary">Добави</button>
         </div>
     </div>
 </div>

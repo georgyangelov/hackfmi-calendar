@@ -52,10 +52,10 @@ function MainVM() {
 			prev_year = self.year() - 1;
 		}
 
-		return new calendarmonth(prev_year, prev_month);
+		return new calendarmonth(prev_year, prev_month, true);
 	});
 	this.centerCalendar = ko.computed(function() {
-		return new calendarmonth(self.year(), self.month());
+		return new calendarmonth(self.year(), self.month(), true);
 	});
 	this.rightCalendar = ko.computed(function() {
 		var next_year = self.year();
@@ -65,7 +65,7 @@ function MainVM() {
 			next_year = self.year() + 1;
 		}
 
-		return new calendarmonth(next_year, next_month);
+		return new calendarmonth(next_year, next_month, true);
 	});
 
 	this.events = ko.computed(function() {
@@ -105,9 +105,12 @@ function MainVM() {
 function EventItem(data) {
 	var self = this;
 
+	this.id = ko.observable(data.id_field);
+
 	this.name = ko.observable(data.name);
 	this.date = ko.observable(new Date(Date.parse(data.date)));
 	this.description = ko.observable(data.description);
+	this.tags = ko.observableArray(data.tags);
 
 	this.switchToEvent = function() {
 		Application.event(new event(self));

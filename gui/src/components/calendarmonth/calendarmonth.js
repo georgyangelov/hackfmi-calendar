@@ -1,4 +1,4 @@
-function calendarmonth(year, month) {
+function calendarmonth(year, month, loadEvents) {
 	var self = this;
 
 	this.year = ko.observable(year);
@@ -20,7 +20,10 @@ function calendarmonth(year, month) {
 			}
 		});
 	};
-	this.loadEvents();
+
+	if (loadEvents) {
+		this.loadEvents();
+	}
 
 	/* Gets day of week (1 to 7) and starts with Monday */
 	function dayOfWeek(date) {
