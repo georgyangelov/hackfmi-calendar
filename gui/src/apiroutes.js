@@ -52,3 +52,14 @@ amplify.request.define(
         decoder: "errorDecoder"
     }
 );
+
+amplify.request.define(
+    "add_event", "ajax",
+    {
+        url: "/events/session/{session_key}",
+        type: "POST",
+        dataType: "json",
+        cache: false,
+        decoder: "errorDecoder"
+    }
+);
