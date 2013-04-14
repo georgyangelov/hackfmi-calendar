@@ -12,10 +12,11 @@ class Comment(Document):
     comment_id = StringField()
 
     def to_json(self):
+        user = User.objects(student_id=self.author)[0]
         return {
-                "author": User.objects(student_id=self.author)[0],
+                "author": user.first_name + user.last_name,
                 "content": self.content,
-                "date": str(date),
+                "date": str(self.date),
                 "comment_id": self.comment_id
                 }
 
@@ -44,11 +45,11 @@ def publish_comment(session_key, event_id):
     return {"success": True}
 
 
-@get('/comments/:event_id')
+@get('/comments/:event_id') #nameri komentar po id
 def view_comments(event_id):
     events = [event for event in Event.objects() if event.id_field == event_id]
     if events:
-        return list(map(lambda comment: json.dumps(comment.to_json()), events[0].comments))
+        return list(map(lambda _id: json.dumps(Comment.objects(comment_id=_id)[0].to_json()), events[0].comments))
     else:
         return error403("There is no such event")
 
