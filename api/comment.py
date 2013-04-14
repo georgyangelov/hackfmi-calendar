@@ -13,7 +13,7 @@ class Comment(Document):
 
     def to_json(self):
         return {
-                "author": self.author,
+                "author": User.objects(student_id=self.author)[0],
                 "content": self.content,
                 "date": str(date),
                 "comment_id": self.comment_id
