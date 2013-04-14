@@ -25,7 +25,7 @@
         <p id="countAppr"style="font-weight:bold;font-size:40px;float:none">0</p>
 	</div>
 	<p style="font-weight:bold; font-size:15px">
-	Кога: <span data-bind="text: event().date().getDate() + '.' + (event().date().getMonth() + 1) + ' ' + event().date().getHours() + ':' + event().date().getMinutes()">12.12 17:00</span>
+	Кога: <span data-bind="text: pad(event().date().getDate()) + '.' + pad(event().date().getMonth() + 1) + ' ' + pad(event().date().getHours()) + ':' + pad(event().date().getMinutes())">12.12 17:00</span>
 	</p>
 	<div>
 	<p style="font-weight:bold; font-size:15px">Повече:</p>
