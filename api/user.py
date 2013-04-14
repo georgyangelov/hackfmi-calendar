@@ -5,7 +5,7 @@ import re
 import json
 import datetime
 import random
-import urllib
+import urllib.parse
 
 
 class User(Document):
@@ -130,7 +130,7 @@ def user_by_session_key(session_key):
 
 @route('/user/avatar/:user_id')
 def avatar(user_id):
-    email = User.objects(student_id=user_id)
-    gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
-    gravatar_url += urllib.urlencode({'d': "http://placekitten.com/80/80", 's': str(80)})
+    user = User.objects(student_id=user_id)
+    gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(user[0].email.lower().encode()).hexdigest() + "?"
+    gravatar_url += urllib.parse.urlencode({'d': "http://placekitten.com/100/100", 's': "100"})
     redirect(gravatar_url)
