@@ -4,6 +4,7 @@ from bottle import *
 from api.user import *
 from api.event import *
 
+
 class Tag(Document):
     name = StringField(required=True, unique=True)
     administrator = IntField()
