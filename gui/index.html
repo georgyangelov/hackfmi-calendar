@@ -19,6 +19,7 @@
 	<script src="src/components/registerpanel/registerpanel.js"></script>
 	<script src="src/components/calendarmonth/calendarmonth.js"></script>
 	<script src="src/components/event/event.js"></script>
+	<script src="src/components/eventpanel/eventpanel.js"></script>
 	<!-- /components -->
 
 	<script src="src/main.js"></script>
@@ -50,10 +51,11 @@
 					<!-- ko ifnot: isLoggedIn -->
 					<li><a href="#login" data-toggle="modal">Login</a></li>
 					<li><a href="#register" data-toggle="modal">Register</a></li>
+					<li><a href="#eventpanel" data-toggle="modal">Add event</a></li>
 					<!-- /ko -->
 
 					<!-- ko if: isLoggedIn -->
-					Logged in
+					<li><a href="#eventpanel" data-toggle="modal">Add event</a></li>
 					<!-- /ko -->
 				</ul>
 			</nav>
@@ -61,6 +63,7 @@
 
 	<div id="login" class="modal fade hide" data-bind="component: loginpanel"></div>
 	<div id="register" class="modal fade hide" data-bind="component: registerpanel"></div>
+	<div id="eventpanel" class="modal fade hide" data-bind="component: eventpanel"></div>
 
 	<div id="eventpage" data-bind="component: event"></div>
 

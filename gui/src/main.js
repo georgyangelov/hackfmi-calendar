@@ -35,7 +35,7 @@ function MainVM() {
 	this.year = ko.observable(2013);
 	this.month = ko.observable(3);
 
-	this.event = ko.observable(new event());
+	this.event = ko.observable(null);
 	this.isEventPage = ko.computed(function() {
 		return self.event() != null;
 	});
@@ -71,6 +71,7 @@ function MainVM() {
 	/* Panels */
 	this.loginpanel = ko.observable(new loginpanel());
 	this.registerpanel = ko.observable(new registerpanel());
+	this.eventpanel = ko.observable(new eventpanel());
 
 	/* Stuff */
 	this.alerts = ko.observableArray([]).extend({ defaultItem: { title: "", text: "", type: "info" } });

@@ -1,0 +1,49 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal">×</button>
+	<h3>Ново събитие</h3>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal">
+		<div class="control-group" data-bind="css: {error: name.hasModError}">
+		<label class="control-label" for="name">Име</label>
+			<div class="controls">
+				<input type="text" id="name" class="input-xlarge" name="name" data-bind="value: name" />
+				<p class="help-block" data-bind="visible: name.hasModError, text: name.errorMessage"></p>
+			</div>
+		</div>
+		<div class="control-group" data-bind="css: {error: description.hasModError}">
+		<label class="control-label" for="description">Описание</label>
+			<div class="controls">
+				<textarea id="description" class="input-xlarge" name="description" data-bind="value: description" style="height: 100px"></textarea>
+				<p class="help-block" data-bind="visible: description.hasModError, text: description.errorMessage"></p>
+			</div>
+		</div>
+		<div class="control-group" data-bind="css: {error: tags.hasModError}">
+		<label class="control-label" for="tags">Тагове</label>
+			<div class="controls">
+				<input type="text" id="tags" class="input-xlarge" name="tags" data-bind="value: tags" />
+				<p class="help-block" data-bind="visible: tags.hasModError, text: tags.errorMessage"></p>
+			</div>
+		</div>
+		<div class="control-group" data-bind="css: {error: date.hasModError}">
+		<label class="control-label" for="date">Дата</label>
+			<div class="controls">
+				<input type="date" id="date" class="input-xlarge" name="date" data-bind="value: date" />
+				<p class="help-block" data-bind="visible: date.hasModError, text: date.errorMessage"></p>
+			</div>
+		</div>
+		<div class="control-group" data-bind="css: {error: hour.hasModError}">
+		<label class="control-label" for="hour">Час</label>
+			<div class="controls">
+				<input type="time" id="hour" class="input-xlarge" name="hour" data-bind="value: hour" />
+				<p class="help-block" data-bind="visible: hour.hasModError, text: hour.errorMessage"></p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<h4 data-bind="text: error, visible: error" class="error pull-left"></h4>
+
+	<a href="#" class="btn" data-dismiss="modal">Затвори</a>
+	<input type="submit" class="btn btn-primary" value="Вход" data-bind="click: submit, enable: isFormValid" />
+</div>
