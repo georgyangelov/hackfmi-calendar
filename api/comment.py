@@ -51,3 +51,4 @@ def view_comments(event_id):
         return list(map(lambda comment: json.dumps(comment.to_json()), events[0].comments))
     else:
         return error403("There is no such event")
+
