@@ -3,6 +3,7 @@ from bottle import *
 from mongoengine import *
 from api.user import *
 import hashlib
+import random
 
 
 class Event(Document):
@@ -41,11 +42,8 @@ def create_events(session_key):
         event.users_approved.append(event.creator)
     else:
         return error403("There is no user with that session key")
-    try:
-        tags_list = request.forms.getunicode('tags')
-        events.tags = tags_list.split(" ")
-    except:
-        pass
+    tags_list = request.forms.getunicode('tags')
+    event.tags = tags_list.split(" ")
     user_id = str(datetime.datetime.now()) + event.name + str(random.randint(1000000, 9999999))
     m = hashlib.sha256()
     m.update(user_id.encode())
