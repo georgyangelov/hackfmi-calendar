@@ -13,7 +13,7 @@ function calendarmonth(year, month) {
 				month: self.month()
 			},
 			success: function (data) {
-				self.events(data);
+				self.events(convertEventItems(data));
 			},
 			error: function (data) {
 				console.log(data);

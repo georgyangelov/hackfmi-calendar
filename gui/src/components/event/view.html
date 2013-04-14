@@ -3,8 +3,10 @@
 	<!-- ko foreach: events -->
 		<li>
 			<a href="#" class="thumbnail">
-				<h3 data-bind="text: name"></h3>
-				<p data-bind="text: description"></p>
+			 <h3 data-bind="text: name"></h3> 
+			
+				
+				<p data-bind="text: description"></p> 
 			</a>
 		</li>
 	<!-- /ko -->
@@ -12,11 +14,65 @@
 </div>
 
 <div class="event-container border-panel">
-	<h3 data-bind="text: event().name"></h3>
+	<h3>Python Seminar</h3>
+	<!--
+<div style="float:left; border: 1px solid lightblue;border-radius:4px;">
+	<p>Потвърдиха</p>
+</div>
+-->
+	<p></p>
+	<div style="float:right;border: 1px solid lightblue; border-radius:5px">
+        <p style="font-weight:bold;font-size:24px">Потвърдиха</p>
+        <img src="style/thumbsup.png" style="width:45px; height:45px;float:left"/>
+        <p id="countAppr"style="font-weight:bold;font-size:48px;float:none">74</p>
+	</div>
+	<p style="font-weight:bold; font-size:18px">
+	Кога: 12.12 17:00
+	</p>
+	<div>
+	<p style="font-weight:bold; font-size:18px">Повече:</p>
+	<p style="word-wrap: break-word;font-size:18px"> Python е
+модерен обектно-ориентиран скриптов език с прост синтаксис и мощни
+изразни средства. В последните години в софтуерната индустрия все по-
+често се ползват интерпретируеми езици за да се осигури по-висока скорост
+на разработка и...</p>
+	</div>
+	<p style="font-weight:bold; font-size:18px">Тагове</p>
+    <div>	
+	<span class="btn">Python</span>
+	 <span class="btn">Unit testing</span>
+	 <span class="btn">PEP8</span>
+	</div>
+    <div style="margin-top:20px">
+	<button class="btn btn-large btn-primary" onclick="(#countAppr).text=75" >Потвърди</button>
+    </div>
+</div>
+<div class="event-container border-panel" style="margin-top:20px">
+    <h4>Коментари</h4>
+    <div class="comments" style="margin:5px; padding:15px">
 
-	<p data-bind="text: event().description"></p>
+        <div class="comments_content" style="padding-bottom: 30px; margin-bottom:20px;">
+        <div class="avatars" style="float:left;">
+            <img src="style/python.jpg" style="width:30px;height:30px"/>
+            <br />
+            <span style="font-weight:bold">Георги</span>
+        </div>
+        <div style="float:left;"> 
+            Семинарът ще бъде страхотен.
+        </div>
+        </div>
 
-	<strong>Date: 12.12.2012</strong>
+         <div class="comments_content" style="padding-bottom:30px;">
+        <div class="avatars" style="float:left;">
+            <img src="style/python.jpg" style="width:30px;height:30px"/>
+            <br />
+            <span style="font-weight:bold">Стефан</span>
+        </div>
+        <div style="float:left;"> 
+            Ще говори ли Guido van Rossum?
+        </div>
+        </div>
+    </div>
 </div>
 
 <div class="calendar-container">

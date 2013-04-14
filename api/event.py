@@ -77,6 +77,6 @@ def get_events_by_month(month_id):
         return error400("Invalid month")
     events = Event.objects()
     if events:
-        return [json.dumps(event.to_json()) for event in events if event.date.date().month == month + 1]
+        return "[" + ", ".join([json.dumps(event.to_json()) for event in events if event.date.date().month == month + 1]) + "]"
     else:
         return error403("There are no events in this month")
