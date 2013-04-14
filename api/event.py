@@ -2,6 +2,7 @@ import datetime
 from bottle import *
 from mongoengine import *
 from api.user import *
+from api.tag import *
 import hashlib
 import random
 import requests
@@ -30,6 +31,15 @@ class Event(Document):
                 "id_field": self.id_field
                 }
 
+    def add_suggested_tags(self):
+        words = self.name.split(" ") + self.description.split(" ")
+        tags = Tag.objects()
+        if tags:
+            for word in words:
+                for tag in tags:
+                    if word in tag.name:
+                        self.tags.append(word)
+
 
 def send_simple_message(recipients, event):
     return requests.post(
@@ -55,7 +65,12 @@ def create_events(session_key):
     else:
         return error403("There is no user with that session key")
     tags_list = request.forms.getunicode('tags')
-    event.tags = tags_list.split(" ")
+    print(tags_list)
+    try:
+        event.tags = tags_list.split(" ")
+    except:
+        event.tags = tags_list[0]
+    event.add_suggested_tags()
     user_id = str(datetime.datetime.now()) + event.name + str(random.randint(1000000, 9999999))
     m = hashlib.sha256()
     m.update(user_id.encode())

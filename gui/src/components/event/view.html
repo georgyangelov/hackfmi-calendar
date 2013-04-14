@@ -25,7 +25,7 @@
         <p id="countAppr"style="font-weight:bold;font-size:40px;float:none">0</p>
 	</div>
 	<p style="font-weight:bold; font-size:15px">
-	Кога: <span data-bind="text: event().date().getDate() + '.' + (event().date().getMonth() + 1) + ' ' + event().date().getHours() + ':' + event().date().getMinutes()">12.12 17:00</span>
+	Кога: <span data-bind="text: pad(event().date().getDate()) + '.' + pad(event().date().getMonth() + 1) + ' ' + pad(event().date().getHours()) + ':' + pad(event().date().getMinutes())">12.12 17:00</span>
 	</p>
 	<div>
 	<p style="font-weight:bold; font-size:15px">Повече:</p>
@@ -35,10 +35,12 @@
 често се ползват интерпретируеми езици за да се осигури по-висока скорост
 на разработка и...</p>
 	</div>
+	<!-- ko if: event().tags().length > 0 -->
 	<p style="font-weight:bold; font-size:15px">Тагове</p>
     <div data-bind="foreach: event().tags">
 		<span class="badge badge-info" data-bind="text: $data"></span>
 	</div>
+	<!-- /ko -->
     <div style="margin-top:20px">
 	<button class="btn btn-primary" onclick="document.getElementById('countAppr').innerHTML = 1" >Потвърди</button>
     </div>
@@ -50,7 +52,7 @@
     	<!-- ko foreach: comments -->
         <div class="comments_content" style="padding-bottom: 30px; margin-bottom:20px;">
         <div class="avatars" style="float:left;">
-            <img data-bind="attr: {'src': avatarLink(author_id)}"/>
+            <img data-bind="attr: {'src': avatarLink(author_id)}" style="width: 100px;height: 100px;"/>
             <br />
             <span style="font-weight:bold;" data-bind="text: author"></span>
         </div>

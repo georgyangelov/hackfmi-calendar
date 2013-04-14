@@ -125,6 +125,10 @@ function avatarLink(id) {
 	return '/user/avatar/' + id;
 }
 
+function pad(n) {
+    return (n < 10) ? ("0" + n) : n;
+}
+
 function convertEventItems(data) {
 	return data.map(function(obj) {
 		return new EventItem(obj);

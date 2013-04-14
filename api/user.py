@@ -132,5 +132,5 @@ def user_by_session_key(session_key):
 def avatar(user_id):
     user = User.objects(student_id=user_id)
     gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(user[0].email.lower().encode()).hexdigest() + "?"
-    gravatar_url += urllib.parse.urlencode({'d': "http://placekitten.com/100/100", 's': "100"})
+    gravatar_url += urllib.parse.urlencode({'d': "http://customersrock.files.wordpress.com/2007/07/bunny.jpg", 's': "100"})
     redirect(gravatar_url)
