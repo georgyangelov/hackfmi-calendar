@@ -93,7 +93,7 @@
 		<li>
 			<a href="#" class="thumbnail" data-bind="click: switchToEvent">
 				<h3 data-bind="text: name"></h3>
-				<p data-bind="text: description"></p>
+				<p data-bind="text: truncateText(description(), 100)"></p>
 			</a>
 		</li>
 		<!-- /ko -->
